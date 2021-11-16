@@ -19,6 +19,7 @@ export const initialState: IStore = {
             loginInformation: {},
         },
     },
+    bearerToken: "",
 };
 
 export default initialState;

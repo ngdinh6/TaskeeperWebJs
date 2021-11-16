@@ -21,7 +21,10 @@ interface IUserPhoneNumberState {
     ISD_CodeId: string;
     phoneNumber: string;
 }
-
+export interface ILoginState {
+    loginInformation: ILoginInformationState;
+    loginString: string;
+}
 interface ILoginInformationState {
     password?: string;
     facebookToken?: string;
