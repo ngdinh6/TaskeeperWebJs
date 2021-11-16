@@ -1,20 +1,28 @@
-import { HttpStatus, AuthEndpoint } from "enums/Http.enum";
+import { HttpStatus, AuthEndpoint } from "enums/http.enum";
 import { sendPostRequest } from "services/api.service";
 import { ILoginState, IRegisterNewAccountState } from "models/IUserState";
-export const login = async (loginState: ILoginState) => {
+
+export const login = async (
+    loginState: ILoginState
+): Promise<Object | Error> => {
     const loginResult = await sendPostRequest(AuthEndpoint.LOGIN, loginState);
 
-    if(loginResult.status === HttpStatus.ACCEPTED){
+    if (loginResult.status === HttpStatus.ACCEPTED) {
         return loginResult.data;
     }
 
     throw new Error(loginResult.message);
 };
 
-export const register = async (registerState: IRegisterNewAccountState) => {
-    const registerResult = await sendPostRequest(AuthEndpoint.REGISTER, registerState);
+export const register = async (
+    registerState: IRegisterNewAccountState
+): Promise<Object | Error> => {
+    const registerResult = await sendPostRequest(
+        AuthEndpoint.REGISTER,
+        registerState
+    );
 
-    if(registerResult.status === HttpStatus.CREATED){
+    if (registerResult.status === HttpStatus.CREATED) {
         return registerResult.data;
     }
 
