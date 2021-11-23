@@ -11,7 +11,7 @@ const LoginPage = (props: any) => {
     <div className="ant">
       <Style.Header>TASKEEPER</Style.Header>
       <Style.Main>
-        <Style.TitleSay>WELCOME TO US</Style.TitleSay>
+        <Style.TitleSay>WELCOME TO US</Style.TitleSay>  
         <Style.Description>
           Where to find the suitable job for you
         </Style.Description>

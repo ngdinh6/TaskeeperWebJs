@@ -10,6 +10,9 @@ import LoginPage from "pages/loginPage/LoginPage";
 import { Router, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
+import "./App.css";
+import "antd/dist/antd.css";
+
 function App() {
   return (
     <Router history={createBrowserHistory()}>
