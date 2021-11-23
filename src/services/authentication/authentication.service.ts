@@ -1,4 +1,4 @@
-import { HttpStatus, AuthEndpoint } from "enums/http.enum";
+import { HttpStatus, AuthEndpoint } from "enums/Http.enum";
 import { sendPostRequest } from "services/api.service";
 import { ILoginState, IRegisterNewAccountState } from "models/IUserState";
 

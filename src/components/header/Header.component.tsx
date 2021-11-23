@@ -1,26 +1,24 @@
-import { Menu } from "antd";
-import { SearchOutlined, LoginOutlined, MenuOutlined } from "@ant-design/icons";
-import React from "react";
+import React from 'react';
 
-function CustomerHeader() {
+import {withRouter} from "react-router-dom";
+import { Space,Button } from "antd";
+import * as Style from "components/header/style";
+
+function Header() {
     return (
-        <div>
-            <Menu mode="vertical">
-                <Menu.Item>
-                    <div className="logo"></div>
-                </Menu.Item>
-                <Menu.Item key="seeking" icon={<SearchOutlined />}>
-                    Seeking your job
-                </Menu.Item>
-                <Menu.Item key="login" icon={<LoginOutlined />}>
-                    Login
-                </Menu.Item>
-                <Menu.Item key="menu" icon={<MenuOutlined />}>
-                    Menu
-                </Menu.Item>
-            </Menu>
-        </div>
+        <Style.HeaderContainer>
+            <Space>
+                <Style.Logo>LOGO</Style.Logo>
+            </Space>
+            <div>
+                <Space>
+                    <Button type="primary">
+                        LOG OUT
+                    </Button>
+                </Space>
+            </div>
+        </Style.HeaderContainer>
     );
 }
 
-export default CustomerHeader;
+export default withRouter(Header);

@@ -5,7 +5,7 @@ import {
     sendPutRequest,
     sendDeleteRequest,
 } from "services/api.service";
-import { PostsEndpoint, HttpStatus } from "enums/http.enum";
+import { PostsEndpoint, HttpStatus } from "enums/Http.enum";
 
 export const getPost = async (postId: string): Promise<Object | Error> => {
     const getPostResult = await sendGetRequest(buildGetPostQueryUrl(postId));

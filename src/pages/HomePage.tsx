@@ -1,26 +1,18 @@
-import CustomerLayout from "components/layout/Layout.component";
-import React from "react";
+import React, { Component, useEffect } from "react";
 
-const homePageUI = () => {
-    return (
-        <div>
-            <h2>HELLO</h2>
-            <p>
-                Cras facilisis urna ornare ex volutpat, et convallis erat
-                elementum. Ut aliquam, ipsum vitae gravida suscipit, metus dui
-                bibendum est, eget rhoncus nibh metus nec massa. Maecenas
-                hendrerit laoreet augue nec molestie. Cum sociis natoque
-                penatibus et magnis dis parturient montes, nascetur ridiculus
-                mus.
-            </p>
-
-            <p>Duis a turpis sed lacus dapibus elementum sed eu lectus.</p>
-        </div>
-    );
+const HomePage = (props:any) => {
+  const { history } = props;
+  useEffect(() => {
+    // const token = localStorage.getItem("user");
+    // var decoded = jwt_decode(token);
+    // console.log(decoded);
+  }, []);
+  //const handleOnClick = useCallback(() => history.push("/login"), [history]);
+  return (
+    <div>
+      <h1>this is home page</h1>
+    </div>
+  );
 };
-
-function HomePage() {
-    return <CustomerLayout children={homePageUI} />;
-}
 
 export default HomePage;

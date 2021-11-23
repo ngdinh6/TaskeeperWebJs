@@ -1,7 +1,13 @@
-import React from "react";
+import React from 'react';
 
-function CustomerFooter() {
-    return <div>Footer</div>;
+import * as Style from 'components/footer/style';
+
+function Footer() {
+  return (
+    <Style.FooterContainer>
+      Footer
+    </Style.FooterContainer>
+  );
 }
 
-export default CustomerFooter;
+export default Footer;
