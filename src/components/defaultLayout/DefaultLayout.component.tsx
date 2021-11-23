@@ -1,6 +1,6 @@
 import Footer from "components/footer/Footer.component";
 import Header from "components/header/Header.component";
-import React, {Component} from 'react';
+import React, { Component } from "react";
 import { Route } from "react-router-dom";
 
 import * as Style from "components/defaultLayout/style";
@@ -11,15 +11,22 @@ const DefaultLayout = (props: any) => {
     <Route
       exact={exact}
       path={path}
-      render={(routeProps:any) => {
+      render={(routeProps: any) => {
         return (
-          <>
-            <Header />
-            <Style.MainContainer>
+          <div>
+            <body>
+              <nav
+                className="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light"
+                id="ftco-navbar"
+              >
+                <Header />
+              </nav>
               <Component {...routeProps} />
-            </Style.MainContainer>
-            <Footer />
-          </>
+              <footer className="ftco-footer ftco-bg-dark ftco-section">
+                <Footer />
+              </footer>
+            </body>
+          </div>
         );
       }}
     />
