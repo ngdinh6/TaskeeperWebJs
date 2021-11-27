@@ -18,7 +18,7 @@ export const getPost = async (postId: string): Promise<Object | Error> => {
 };
 
 export const createPost = async (
-    newPost: INewPostState
+    newPost: INewPostState | Object
 ): Promise<Object | Error> => {
     const newPostResult = await sendPostRequest(
         PostsEndpoint.ADD_NEW_POST,

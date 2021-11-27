@@ -11,7 +11,7 @@ export const login = async (
         return loginResult.data;
     }
 
-    throw new Error(loginResult.message);
+    throw new Error(loginResult?.message);
 };
 
 export const register = async (

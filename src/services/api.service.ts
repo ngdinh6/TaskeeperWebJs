@@ -1,5 +1,6 @@
 import { store } from "store/configStore";
 import moduleConfig from "module.config";
+import _ from "lodash";
 
 enum HttpMethod {
     POST = "POST",
@@ -18,7 +19,7 @@ export const sendPostRequest = async (urlSubLink: string, body: Object) => {
     });
     const content = await responseData.json();
 
-    return content;
+    return _.assign(content, { status: responseData.status });
 };
 
 export const sendPutRequest = async (urlSubLink: string, body: Object) => {
