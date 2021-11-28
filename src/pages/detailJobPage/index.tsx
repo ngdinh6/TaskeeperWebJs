@@ -2,6 +2,7 @@ import React, { Component, EffectCallback, useEffect, useState } from "react";
 import RecommentJob from "pages/jobRecommentPage/index";
 import { useParams } from "react-router-dom";
 import { getPost } from "services/posts/post.service";
+import { SalaryType } from "enums/post.enum";
 
 const DetailJobPage = (props: any) => {
     const [postData, setPostData] = useState({} as any);
@@ -58,7 +59,7 @@ const DetailJobPage = (props: any) => {
                                     />
                                 </div>
                                 <div>
-                                    <h2>Product Designer</h2>
+                                    <h2>{postData.title}</h2>
                                     <div>
                                         <span className="ml-0 mr-2 mb-2">
                                             <span className="icon-briefcase mr-2"></span>
@@ -66,12 +67,12 @@ const DetailJobPage = (props: any) => {
                                         </span>
                                         <span className="m-2">
                                             <span className="icon-room mr-2"></span>
-                                            New York City
+                                            {postData.location}
                                         </span>
                                         <span className="m-2">
                                             <span className="icon-clock-o mr-2"></span>
                                             <span className="text-primary">
-                                                Full Time
+                                                {postData.jobType}
                                             </span>
                                         </span>
                                     </div>
@@ -124,38 +125,7 @@ const DetailJobPage = (props: any) => {
                                 <ul className="list-unstyled m-0 p-0">
                                     <li className="d-flex align-items-start mb-2">
                                         <span className="icon-check_circle mr-2 text-muted"></span>
-                                        <span>
-                                            Necessitatibus quibusdam facilis
-                                        </span>
-                                    </li>
-                                    <li className="d-flex align-items-start mb-2">
-                                        <span className="icon-check_circle mr-2 text-muted"></span>
-                                        <span>
-                                            Velit unde aliquam et voluptas
-                                            reiciendis n Velit unde aliquam et
-                                            voluptas reiciendis non sapiente
-                                            labore
-                                        </span>
-                                    </li>
-                                    <li className="d-flex align-items-start mb-2">
-                                        <span className="icon-check_circle mr-2 text-muted"></span>
-                                        <span>
-                                            Commodi quae ipsum quas est itaque
-                                        </span>
-                                    </li>
-                                    <li className="d-flex align-items-start mb-2">
-                                        <span className="icon-check_circle mr-2 text-muted"></span>
-                                        <span>
-                                            Lorem ipsum dolor sit amet,
-                                            consectetur adipisicing elit
-                                        </span>
-                                    </li>
-                                    <li className="d-flex align-items-start mb-2">
-                                        <span className="icon-check_circle mr-2 text-muted"></span>
-                                        <span>
-                                            Deleniti asperiores blanditiis nihil
-                                            quia officiis dolor
-                                        </span>
+                                        <span>{postData.responsibilities}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -168,36 +138,7 @@ const DetailJobPage = (props: any) => {
                                 <ul className="list-unstyled m-0 p-0">
                                     <li className="d-flex align-items-start mb-2">
                                         <span className="icon-check_circle mr-2 text-muted"></span>
-                                        <span>
-                                            Necessitatibus quibusdam facilis
-                                        </span>
-                                    </li>
-                                    <li className="d-flex align-items-start mb-2">
-                                        <span className="icon-check_circle mr-2 text-muted"></span>
-                                        <span>
-                                            Velit unde aliquam et voluptas
-                                            reiciendis non sapiente labore
-                                        </span>
-                                    </li>
-                                    <li className="d-flex align-items-start mb-2">
-                                        <span className="icon-check_circle mr-2 text-muted"></span>
-                                        <span>
-                                            Commodi quae ipsum quas est itaque
-                                        </span>
-                                    </li>
-                                    <li className="d-flex align-items-start mb-2">
-                                        <span className="icon-check_circle mr-2 text-muted"></span>
-                                        <span>
-                                            Lorem ipsum dolor sit amet,
-                                            consectetur adipisicing elit
-                                        </span>
-                                    </li>
-                                    <li className="d-flex align-items-start mb-2">
-                                        <span className="icon-check_circle mr-2 text-muted"></span>
-                                        <span>
-                                            Deleniti asperiores blanditiis nihil
-                                            quia officiis dolor
-                                        </span>
+                                        <span>{postData.experience}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -210,36 +151,7 @@ const DetailJobPage = (props: any) => {
                                 <ul className="list-unstyled m-0 p-0">
                                     <li className="d-flex align-items-start mb-2">
                                         <span className="icon-check_circle mr-2 text-muted"></span>
-                                        <span>
-                                            Necessitatibus quibusdam facilis
-                                        </span>
-                                    </li>
-                                    <li className="d-flex align-items-start mb-2">
-                                        <span className="icon-check_circle mr-2 text-muted"></span>
-                                        <span>
-                                            Velit unde aliquam et voluptas
-                                            reiciendis non sapiente labore
-                                        </span>
-                                    </li>
-                                    <li className="d-flex align-items-start mb-2">
-                                        <span className="icon-check_circle mr-2 text-muted"></span>
-                                        <span>
-                                            Commodi quae ipsum quas est itaque
-                                        </span>
-                                    </li>
-                                    <li className="d-flex align-items-start mb-2">
-                                        <span className="icon-check_circle mr-2 text-muted"></span>
-                                        <span>
-                                            Lorem ipsum dolor sit amet,
-                                            consectetur adipisicing elit
-                                        </span>
-                                    </li>
-                                    <li className="d-flex align-items-start mb-2">
-                                        <span className="icon-check_circle mr-2 text-muted"></span>
-                                        <span>
-                                            Deleniti asperiores blanditiis nihil
-                                            quia officiis dolor
-                                        </span>
+                                        <span>{postData.benefits}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -274,7 +186,7 @@ const DetailJobPage = (props: any) => {
                                         <strong className="text-black">
                                             Published on:
                                         </strong>{" "}
-                                        April 14, 2019
+                                        {postData.createdAt}
                                     </li>
                                     <li className="mb-2">
                                         <strong className="text-black">
@@ -286,7 +198,7 @@ const DetailJobPage = (props: any) => {
                                         <strong className="text-black">
                                             Employment Status:
                                         </strong>{" "}
-                                        Full-time
+                                        {postData.jobType}
                                     </li>
                                     <li className="mb-2">
                                         <strong className="text-black">
@@ -298,13 +210,16 @@ const DetailJobPage = (props: any) => {
                                         <strong className="text-black">
                                             Job Location:
                                         </strong>{" "}
-                                        New ork City
+                                        {postData.location}
                                     </li>
                                     <li className="mb-2">
                                         <strong className="text-black">
                                             Salary:
                                         </strong>{" "}
-                                        $60k - $100k
+                                        {postData.salaryType ===
+                                        SalaryType.RANGE
+                                            ? `$${postData.minSalary} - $${postData.maxSalary}`
+                                            : SalaryType.DEALING}
                                     </li>
                                     <li className="mb-2">
                                         <strong className="text-black">
@@ -316,7 +231,7 @@ const DetailJobPage = (props: any) => {
                                         <strong className="text-black">
                                             Application Deadline:
                                         </strong>{" "}
-                                        April 28, 2019
+                                        {postData.expiredDate}
                                     </li>
                                 </ul>
                             </div>

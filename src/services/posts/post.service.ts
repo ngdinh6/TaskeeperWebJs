@@ -6,12 +6,13 @@ import {
     sendDeleteRequest,
 } from "services/api.service";
 import { PostsEndpoint, HttpStatus } from "enums/Http.enum";
+import { mappingPost } from "services/posts/post.mapping.service";
 
 export const getPost = async (postId: string): Promise<Object | Error> => {
     const getPostResult = await sendGetRequest(buildGetPostQueryUrl(postId));
 
     if (getPostResult.status === HttpStatus.FOUND) {
-        return getPostResult.data;
+        return mappingPost(getPostResult.data);
     }
 
     throw new Error(getPostResult?.message);
