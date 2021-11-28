@@ -16,17 +16,20 @@ import "./App.css";
 import "antd/dist/antd.css";
 
 function App() {
-  return (
-    <Router history={createBrowserHistory()}>
-      <Switch>
-        <FullLayout exact path="/" component={LoginPage} />
-        <FullLayout exact path="/register" component={RegisterPage} />
-        <DefaultLayout exact path="/homepage" component={HomePage} />
-        <DefaultLayout exact path="/detail-job" component={DetailJobPage} />
-        <DefaultLayout exact path="/post-job" component={PostJobPage} />
-      </Switch>
-    </Router>
-  );
+    return (
+        <Router history={createBrowserHistory()}>
+            <Switch>
+                <FullLayout exact path="/" component={LoginPage} />
+                <FullLayout exact path="/register" component={RegisterPage} />
+                <DefaultLayout exact path="/homepage" component={HomePage} />
+                <DefaultLayout
+                    path="/detail-job/:id"
+                    component={DetailJobPage}
+                />
+                <DefaultLayout exact path="/post-job" component={PostJobPage} />
+            </Switch>
+        </Router>
+    );
 }
 
 export default App;

@@ -14,7 +14,7 @@ export const getPost = async (postId: string): Promise<Object | Error> => {
         return getPostResult.data;
     }
 
-    throw new Error(getPostResult.message);
+    throw new Error(getPostResult?.message);
 };
 
 export const createPost = async (
