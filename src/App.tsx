@@ -8,7 +8,7 @@ import RegisterPage from "pages/registerPage/RegisterPage";
 import LoginPage from "pages/loginPage/LoginPage";
 import DetailJobPage from "pages/detailJobPage/index";
 import PostJobPage from "pages/postJobPage/index";
-
+import UserProfile from "pages/profilePage";
 import { Router, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
@@ -26,6 +26,10 @@ function App() {
                     exact
                     path="/detail-job/:id"
                     component={DetailJobPage}
+                />
+                <DefaultLayout
+                    path="/userProfile/:id"
+                    component={UserProfile}
                 />
                 <DefaultLayout exact path="/post-job" component={PostJobPage} />
             </Switch>
