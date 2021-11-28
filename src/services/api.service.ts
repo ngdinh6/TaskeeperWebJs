@@ -32,7 +32,7 @@ export const sendPutRequest = async (urlSubLink: string, body: Object) => {
     });
     const content = await responseData.json();
 
-    return content;
+    return _.assign(content, { status: responseData.status });
 };
 
 export const sendGetRequest = async (urlSubLink: string) => {
@@ -43,7 +43,7 @@ export const sendGetRequest = async (urlSubLink: string) => {
     });
     const content = await responseData.json();
 
-    return content;
+    return _.assign(content, { status: responseData.status });
 };
 
 export const sendDeleteRequest = async (urlSubLink: string, body: Object) => {
@@ -55,7 +55,7 @@ export const sendDeleteRequest = async (urlSubLink: string, body: Object) => {
     });
     const content = await responseData.json();
 
-    return content;
+    return _.assign(content, { status: responseData.status });
 };
 
 const buildHeaders = () => {

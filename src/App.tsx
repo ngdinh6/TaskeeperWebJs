@@ -13,7 +13,7 @@ import { Router, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
 import "./App.css";
-import "antd/dist/antd.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
     return (
@@ -23,6 +23,7 @@ function App() {
                 <FullLayout exact path="/register" component={RegisterPage} />
                 <DefaultLayout exact path="/homepage" component={HomePage} />
                 <DefaultLayout
+                    exact
                     path="/detail-job/:id"
                     component={DetailJobPage}
                 />

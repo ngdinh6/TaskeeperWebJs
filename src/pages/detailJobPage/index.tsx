@@ -1,19 +1,22 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, EffectCallback, useEffect, useState } from "react";
 import RecommentJob from "pages/jobRecommentPage/index";
 import { useParams } from "react-router-dom";
 import { getPost } from "services/posts/post.service";
 
 const DetailJobPage = (props: any) => {
-    let postData;
-    try {
-        const params: any = useParams();
+    const [postData, setPostData] = useState({} as any);
 
-        if (Boolean(params.id)) {
-            postData = getPost(params.id).then((data) => data);
-        }
-    } catch (err) {
-        console.error(err);
-    }
+    const params: any = useParams();
+
+    const getData = (): Promise<Object> => {
+        return getPost(params.id);
+    };
+
+    useEffect(() => {
+        getData().then((data) => {
+            setPostData(data);
+        });
+    }, []);
 
     return (
         <div>
@@ -111,22 +114,7 @@ const DetailJobPage = (props: any) => {
                                     <span className="icon-align-left mr-3"></span>
                                     Job Description
                                 </h3>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    adipisicing elit. Debitis illum fuga
-                                    eveniet. Deleniti asperiores, commodi quae
-                                    ipsum quas est itaque, ipsa, dolore beatae
-                                    voluptates nemo blanditiis iste eius officia
-                                    minus.
-                                </p>
-                                <p>
-                                    Velit unde aliquam et voluptas reiciendis
-                                    non sapiente labore, deleniti asperiores
-                                    blanditiis nihil quia officiis dolor vero
-                                    iste dolore vel molestiae saepe. Id nisi,
-                                    consequuntur sunt impedit quidem, vitae
-                                    mollitia!
-                                </p>
+                                <p>{postData.description}</p>
                             </div>
                             <div className="mb-5">
                                 <h3 className="h5 d-flex align-items-center mb-4 text-primary">
