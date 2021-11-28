@@ -20,3 +20,7 @@ export enum PostsEndpoint {
     DELETE_POST = "posts/deletePost",
     GET_POST = "posts/getPost",
 }
+
+export enum UsersEndpoint {
+    GET_USER = "users/getUser",
+}
