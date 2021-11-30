@@ -24,6 +24,19 @@ export const uploadAvatar = async (file: any): Promise<Object | Error> => {
     throw new Error(uploadAvatarResult?.message);
 };
 
+export const followUser = async (userId: string): Promise<Object | Error> => {
+    const uploadAvatarResult = await sendPostRequest(
+        UsersEndpoint.FOLLOW_USER,
+        { userId }
+    );
+
+    if (uploadAvatarResult.status === HttpStatus.OK) {
+        return true;
+    }
+
+    throw new Error(uploadAvatarResult?.message);
+};
+
 const buildGetUserQueryUrl = (userId: string): string => {
     return `${UsersEndpoint.GET_USER}?userId=${userId}`;
 };

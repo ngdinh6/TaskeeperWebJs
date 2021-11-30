@@ -1,5 +1,6 @@
 export const mappingPost = (postData: any) => {
     return {
+        _id: postData._id,
         title: postData.title,
         description: postData.description,
         createdAt: postData.createdAt
@@ -24,5 +25,6 @@ export const mappingPost = (postData: any) => {
         salaryType: postData.salaryType,
         minSalary: postData.minSalary,
         maxSalary: postData.maxSalary,
+        location: postData.location,
     };
 };

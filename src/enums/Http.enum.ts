@@ -27,4 +27,5 @@ export enum PostsEndpoint {
 export enum UsersEndpoint {
     GET_USER = "users/getUser",
     UPLOAD_AVATAR = "users/avatar",
+    FOLLOW_USER = "users/follow",
 }

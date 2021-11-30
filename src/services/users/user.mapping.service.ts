@@ -2,6 +2,7 @@ import _ from "lodash";
 
 export const mappingUser = (userData: any) => {
     return {
+        _id: userData._id,
         languageCode: userData.languageCode,
         avatar: userData.avatar,
         gender: userData.gender,

@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getUser } from "services/users/users.service";
+import { followUser, getUser } from "services/users/users.service";
 import PostList from "components/PostList/index";
+import { getUserWall } from "services/posts/post.service";
 
 const UserProfile = (props: any) => {
     const params: any = useParams();
     const [userData, setUserData] = useState({} as any);
+    const [userWallData, setUserWallData] = useState([] as any);
 
     useEffect(() => {
-        getUser(params.id).then((data) => {
-            console.log(data);
-            setUserData(data);
+        const userData = getUser(params.id);
+        const userWall = getUserWall(params.id);
+
+        Promise.all([userData, userWall]).then((result) => {
+            setUserData(result[0]);
+            setUserWallData(result[1]);
         });
     }, []);
+
     return (
         <div>
             <div
@@ -87,6 +93,29 @@ const UserProfile = (props: any) => {
                                         className="btn btn-block btn-primary btn-md"
                                     >
                                         Update
+                                    </a>
+                                </div>
+                                <div className="col-6">
+                                    <a
+                                        href="#"
+                                        className="btn btn-block btn-outline-success btn-md"
+                                        onClick={async () => {
+                                            try {
+                                                const result = await followUser(
+                                                    userData._id
+                                                );
+
+                                                if (result) {
+                                                    console.log("succes");
+                                                }
+
+                                                console.log("failed");
+                                            } catch (err) {
+                                                console.error(err);
+                                            }
+                                        }}
+                                    >
+                                        Follow
                                     </a>
                                 </div>
                             </div>
@@ -237,7 +266,7 @@ const UserProfile = (props: any) => {
                     </div>
                 </div>
             </section>
-            <PostList jobList={userData.newsFeed} type="List post" />
+            <PostList jobList={userWallData} type="List post" />
         </div>
     );
 };
