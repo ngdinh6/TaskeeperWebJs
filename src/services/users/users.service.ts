@@ -1,11 +1,22 @@
 import { mappingUser } from "services/users/user.mapping.service";
 import { HttpStatus, UsersEndpoint } from "enums/Http.enum";
 import { sendGetRequest, sendPostRequest } from "services/api.service";
+import _ from "lodash";
 
 export const getUser = async (userId: string): Promise<Object | Error> => {
     const getUserData = await sendGetRequest(buildGetUserQueryUrl(userId));
     if (getUserData.status === HttpStatus.FOUND) {
         return mappingUser(getUserData.data);
+    }
+
+    return new Error(getUserData?.message);
+};
+
+export const getTopRecruiters = async (): Promise<Object[] | any> => {
+    const getUserData = await sendGetRequest(UsersEndpoint.GET_TOP_RECRUITERS);
+
+    if (getUserData.status === HttpStatus.OK) {
+        return _.map(getUserData.data, (recruiter) => mappingUser(recruiter));
     }
 
     return new Error(getUserData?.message);
