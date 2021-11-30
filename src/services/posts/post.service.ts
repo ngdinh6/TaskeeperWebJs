@@ -7,6 +7,7 @@ import {
 } from "services/api.service";
 import { PostsEndpoint, HttpStatus } from "enums/Http.enum";
 import { mappingPost } from "services/posts/post.mapping.service";
+import _ from "lodash";
 
 export const getPost = async (postId: string): Promise<Object | Error> => {
     const getPostResult = await sendGetRequest(buildGetPostQueryUrl(postId));
@@ -31,6 +32,36 @@ export const createPost = async (
     }
 
     throw new Error(newPostResult.message);
+};
+
+export const getUserWall = async (userId: string): Promise<Object | Error> => {
+    const getUserWallResult = await sendPostRequest(PostsEndpoint.GET_WALL, {
+        userId,
+        limit: 100,
+        offset: 0,
+    });
+
+    if (getUserWallResult.status === HttpStatus.FOUND) {
+        return _.map(getUserWallResult.data, (post) => mappingPost(post));
+    }
+
+    throw new Error(getUserWallResult?.message);
+};
+
+export const getUserNewsFeed = async (): Promise<Object | Error> => {
+    const getNewsFeedResult = await sendPostRequest(
+        PostsEndpoint.GET_NEWS_FEED,
+        {
+            limit: 100,
+            offset: 0,
+        }
+    );
+
+    if (getNewsFeedResult.status === HttpStatus.FOUND) {
+        return _.map(getNewsFeedResult.data, (post) => mappingPost(post));
+    }
+
+    throw new Error(getNewsFeedResult?.message);
 };
 
 export const editPost = async (

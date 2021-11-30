@@ -19,6 +19,8 @@ export enum PostsEndpoint {
     EDIT_POST = "posts/editPost",
     DELETE_POST = "posts/deletePost",
     GET_POST = "posts/getPost",
+    GET_WALL = "posts/getWall",
+    GET_NEWS_FEED = "posts/getNewsFeed",
 }
 
 export enum UsersEndpoint {
