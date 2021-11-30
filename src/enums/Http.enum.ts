@@ -16,6 +16,7 @@ export enum AuthEndpoint {
 
 export enum PostsEndpoint {
     ADD_NEW_POST = "posts/addNewPost",
+    APPLY_JOB = "postsManage/apply",
     UPLOAD_IMAGE = "posts/uploadImages",
     EDIT_POST = "posts/editPost",
     DELETE_POST = "posts/deletePost",

@@ -1,4 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
+import { applyJob } from "services/posts/post.service";
 
 const Post = (props: any) => {
     const { job } = props;
@@ -34,7 +35,18 @@ const Post = (props: any) => {
                             <span className="icon-heart"></span>
                         </a>
                     </div>
-                    <a onClick={() => {}} className="btn btn-primary py-2">
+                    <a
+                        onClick={async () => {
+                            try {
+                                const data = await applyJob(job._id, "");
+
+                                console.log(data);
+                            } catch (err) {
+                                console.error(err);
+                            }
+                        }}
+                        className="btn btn-primary py-2"
+                    >
                         Apply Job
                     </a>
                 </div>

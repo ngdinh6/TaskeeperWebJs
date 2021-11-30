@@ -19,6 +19,22 @@ export const getPost = async (postId: string): Promise<Object | Error> => {
     throw new Error(getPostResult?.message);
 };
 
+export const applyJob = async (
+    postId: string,
+    summaryMessage: string
+): Promise<Object | Error> => {
+    const applyPostResult = await sendPostRequest(PostsEndpoint.APPLY_JOB, {
+        postId,
+        summaryMessage,
+    });
+
+    if (applyPostResult.status === HttpStatus.FOUND) {
+        return mappingPost(applyPostResult.data);
+    }
+
+    throw new Error(applyPostResult?.message);
+};
+
 export const createPost = async (
     newPost: INewPostState | Object
 ): Promise<Object | Error> => {

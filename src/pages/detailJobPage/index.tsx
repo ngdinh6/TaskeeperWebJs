@@ -1,7 +1,7 @@
 import React, { Component, EffectCallback, useEffect, useState } from "react";
 import RecommentJob from "pages/jobRecommentPage/index";
 import { useParams } from "react-router-dom";
-import { getPost } from "services/posts/post.service";
+import { applyJob, getPost } from "services/posts/post.service";
 import { SalaryType } from "enums/post.enum";
 
 const DetailJobPage = (props: any) => {
@@ -92,7 +92,18 @@ const DetailJobPage = (props: any) => {
                                 </div>
                                 <div className="col-6">
                                     <a
-                                        href="#"
+                                        onClick={async () => {
+                                            try {
+                                                const data = await applyJob(
+                                                    params.id,
+                                                    ""
+                                                );
+
+                                                console.log(data);
+                                            } catch (err) {
+                                                console.error(err);
+                                            }
+                                        }}
                                         className="btn btn-block btn-primary btn-md"
                                     >
                                         Apply Now
@@ -168,7 +179,18 @@ const DetailJobPage = (props: any) => {
                                 </div>
                                 <div className="col-6">
                                     <a
-                                        href="#"
+                                        onClick={async () => {
+                                            try {
+                                                const data = await applyJob(
+                                                    params.id,
+                                                    ""
+                                                );
+
+                                                console.log(data);
+                                            } catch (err) {
+                                                console.error(err);
+                                            }
+                                        }}
                                         className="btn btn-block btn-primary btn-md"
                                     >
                                         Apply Now
