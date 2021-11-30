@@ -26,5 +26,6 @@ export const mappingPost = (postData: any) => {
         minSalary: postData.minSalary,
         maxSalary: postData.maxSalary,
         location: postData.location,
+        image: postData.images[0],
     };
 };

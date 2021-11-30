@@ -117,7 +117,7 @@ const DetailJobPage = (props: any) => {
                             <div className="mb-5">
                                 <figure className="mb-5">
                                     <img
-                                        src="images/job_single_img_1.jpg"
+                                        src={postData.image}
                                         alt="Image"
                                         className="img-fluid rounded"
                                     />

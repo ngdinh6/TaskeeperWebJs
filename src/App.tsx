@@ -15,18 +15,26 @@ import { createBrowserHistory } from "history";
 import "./App.css";
 
 function App() {
-  return (
-    <Router history={createBrowserHistory()}>
-      <Switch>
-        <FullLayout exact path="/" component={LoginPage} />
-        <FullLayout exact path="/register" component={RegisterPage} />
-        <DefaultLayout exact path="/homepage" component={HomePage} />
-        <DefaultLayout exact path="/detail-job/:id" component={DetailJobPage} />
-        <DefaultLayout exact path="/userProfile/:id" component={UserProfile} />
-        <DefaultLayout exact path="/post-job" component={PostJobPage} />
-      </Switch>
-    </Router>
-  );
+    return (
+        <Router history={createBrowserHistory()}>
+            <Switch>
+                <FullLayout exact path="/" component={LoginPage} />
+                <FullLayout exact path="/register" component={RegisterPage} />
+                <DefaultLayout exact path="/homepage" component={HomePage} />
+                <DefaultLayout
+                    exact
+                    path="/detail-job/:id"
+                    component={DetailJobPage}
+                />
+                <DefaultLayout
+                    exact
+                    path="/userProfile/:id"
+                    component={UserProfile}
+                />
+                <DefaultLayout exact path="/post-job" component={PostJobPage} />
+            </Switch>
+        </Router>
+    );
 }
 
 export default App;
