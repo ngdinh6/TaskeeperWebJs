@@ -15,7 +15,11 @@ const DetailJobPage = (props: any) => {
 
     useEffect(() => {
         getData().then((data) => {
-            setPostData(data);
+            try {
+                setPostData(data);
+            } catch (err) {
+                console.error();
+            }
         });
     }, []);
 

@@ -10,13 +10,17 @@ const UserProfile = (props: any) => {
     const [userWallData, setUserWallData] = useState([] as any);
 
     useEffect(() => {
-        const userData = getUser(params.id);
-        const userWall = getUserWall(params.id);
+        try {
+            const userData = getUser(params.id);
+            const userWall = getUserWall(params.id);
 
-        Promise.all([userData, userWall]).then((result) => {
-            setUserData(result[0]);
-            setUserWallData(result[1]);
-        });
+            Promise.all([userData, userWall]).then((result) => {
+                setUserData(result[0]);
+                setUserWallData(result[1]);
+            });
+        } catch (err) {
+            console.error(err);
+        }
     }, []);
 
     return (

@@ -16,7 +16,7 @@ export const getPost = async (postId: string): Promise<Object | Error> => {
         return mappingPost(getPostResult.data);
     }
 
-    throw new Error(getPostResult?.message);
+    return new Error(getPostResult?.message);
 };
 
 export const applyJob = async (
@@ -32,7 +32,7 @@ export const applyJob = async (
         return mappingPost(applyPostResult.data);
     }
 
-    throw new Error(applyPostResult?.message);
+    return new Error(applyPostResult?.message);
 };
 
 export const createPost = async (
@@ -47,7 +47,7 @@ export const createPost = async (
         return newPostResult.data;
     }
 
-    throw new Error(newPostResult.message);
+    return new Error(newPostResult.message);
 };
 
 export const uploadImages = async (
@@ -62,7 +62,7 @@ export const uploadImages = async (
         return uploadImageResult.data;
     }
 
-    throw new Error(uploadImageResult.message);
+    return new Error(uploadImageResult.message);
 };
 
 export const getUserWall = async (userId: string): Promise<Object | Error> => {
@@ -76,7 +76,7 @@ export const getUserWall = async (userId: string): Promise<Object | Error> => {
         return _.map(getUserWallResult.data, (post) => mappingPost(post));
     }
 
-    throw new Error(getUserWallResult?.message);
+    return new Error(getUserWallResult?.message);
 };
 
 export const getUserNewsFeed = async (): Promise<Object | Error> => {
@@ -92,7 +92,7 @@ export const getUserNewsFeed = async (): Promise<Object | Error> => {
         return _.map(getNewsFeedResult.data, (post) => mappingPost(post));
     }
 
-    throw new Error(getNewsFeedResult?.message);
+    return new Error(getNewsFeedResult?.message);
 };
 
 export const editPost = async (
@@ -107,7 +107,7 @@ export const editPost = async (
         return editPostResult.data;
     }
 
-    throw new Error(editPostResult.message);
+    return new Error(editPostResult.message);
 };
 
 export const deletePost = async (
@@ -121,7 +121,7 @@ export const deletePost = async (
         return deletedPostResult.data;
     }
 
-    throw new Error(deletedPostResult.message);
+    return new Error(deletedPostResult.message);
 };
 
 const buildGetPostQueryUrl = (postId: string): string => {

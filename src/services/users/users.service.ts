@@ -8,7 +8,7 @@ export const getUser = async (userId: string): Promise<Object | Error> => {
         return mappingUser(getUserData.data);
     }
 
-    throw new Error(getUserData?.message);
+    return new Error(getUserData?.message);
 };
 
 export const uploadAvatar = async (file: any): Promise<Object | Error> => {
@@ -21,7 +21,7 @@ export const uploadAvatar = async (file: any): Promise<Object | Error> => {
         return mappingUser(uploadAvatarResult.data);
     }
 
-    throw new Error(uploadAvatarResult?.message);
+    return new Error(uploadAvatarResult?.message);
 };
 
 export const followUser = async (userId: string): Promise<Object | Error> => {
@@ -34,7 +34,7 @@ export const followUser = async (userId: string): Promise<Object | Error> => {
         return true;
     }
 
-    throw new Error(uploadAvatarResult?.message);
+    return new Error(uploadAvatarResult?.message);
 };
 
 const buildGetUserQueryUrl = (userId: string): string => {
