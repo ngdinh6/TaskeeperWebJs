@@ -8,7 +8,9 @@ export const mappingUser = (userData: any) => {
         dayOfBirth: userData.dayOfBirth,
         monthOfBirth: userData.monthOfBirth,
         yearOfBirth: userData.yearOfBirth,
-        phoneNumber: `${userData.ISD_CodeId} ${userData.phoneNumber}`,
+        phoneNumber: `${userData.phoneNumber.ISD_CodeId || ""} ${
+            userData.phoneNumber.phoneNumber || ""
+        }`,
         email: userData.email,
         firstName: userData.firstName,
         lastName: userData.lastName,
