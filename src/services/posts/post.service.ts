@@ -1,4 +1,4 @@
-import { INewPostState, IEditPostState } from "models/IPostState";
+import { INewPostState, IEditPostState, IUploadImage } from "models/IPostState";
 import {
     sendGetRequest,
     sendPostRequest,
@@ -32,6 +32,21 @@ export const createPost = async (
     }
 
     throw new Error(newPostResult.message);
+};
+
+export const uploadImages = async (
+    uploadImage: IUploadImage | Object
+): Promise<Object | Error> => {
+    const uploadImageResult = await sendPostRequest(
+        PostsEndpoint.UPLOAD_IMAGE,
+        uploadImage
+    );
+
+    if (uploadImageResult.status === HttpStatus.OK) {
+        return uploadImageResult.data;
+    }
+
+    throw new Error(uploadImageResult.message);
 };
 
 export const getUserWall = async (userId: string): Promise<Object | Error> => {

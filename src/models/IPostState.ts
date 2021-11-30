@@ -11,6 +11,13 @@ export interface INewPostState {
     expiredDate: Date;
 }
 
+export interface IUploadImage {
+    postId: string;
+
+    //This this multer buffer file
+    file: any;
+}
+
 export interface IEditPostState {
     _id: string;
     title: string;

@@ -16,6 +16,7 @@ export enum AuthEndpoint {
 
 export enum PostsEndpoint {
     ADD_NEW_POST = "posts/addNewPost",
+    UPLOAD_IMAGE = "posts/uploadImages",
     EDIT_POST = "posts/editPost",
     DELETE_POST = "posts/deletePost",
     GET_POST = "posts/getPost",
@@ -25,4 +26,5 @@ export enum PostsEndpoint {
 
 export enum UsersEndpoint {
     GET_USER = "users/getUser",
+    UPLOAD_AVATAR = "users/avatar",
 }
