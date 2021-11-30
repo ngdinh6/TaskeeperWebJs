@@ -4,7 +4,6 @@ import { sendGetRequest } from "services/api.service";
 
 export const getUser = async (userId: string): Promise<Object | Error> => {
     const getUserData = await sendGetRequest(buildGetUserQueryUrl(userId));
-
     if (getUserData.status === HttpStatus.FOUND) {
         return mappingUser(getUserData.data);
     }
