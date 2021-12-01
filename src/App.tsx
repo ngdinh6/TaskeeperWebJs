@@ -15,12 +15,14 @@ import { createBrowserHistory } from "history";
 import "./App.css";
 
 function App() {
+    document.title = "Taskeeper - Get jobs and up works";
+
     return (
         <Router history={createBrowserHistory()}>
             <Switch>
-                <FullLayout exact path="/" component={LoginPage} />
+                <FullLayout exact path="/login" component={LoginPage} />
                 <FullLayout exact path="/register" component={RegisterPage} />
-                <DefaultLayout exact path="/homepage" component={HomePage} />
+                <DefaultLayout exact path="/" component={HomePage} />
                 <DefaultLayout
                     exact
                     path="/detail-job/:id"

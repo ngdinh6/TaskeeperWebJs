@@ -1,12 +1,11 @@
+import { defaultAvatar } from "enums/user.enum";
 import _ from "lodash";
 
 export const mappingUser = (userData: any) => {
     return {
         _id: userData._id,
         languageCode: userData.languageCode,
-        avatar:
-            userData.avatar ||
-            "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
+        avatar: userData.avatar || defaultAvatar,
         gender: userData.gender,
         dayOfBirth: userData.dayOfBirth,
         monthOfBirth: userData.monthOfBirth,
