@@ -33,7 +33,7 @@ const AuthorizationItemsMenu = (props: any) => {
                     </a>
                 </li>
                 <li className="nav-item">
-                    <a className="nav-link">{`${userData.firstName}, how are you!`}</a>
+                    <a className="nav-link">{`${userData.firstName}, how are you?`}</a>
                 </li>
                 <li className="nav-item dropdown">
                     <a

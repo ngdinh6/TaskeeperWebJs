@@ -32,7 +32,7 @@ export const applyJob = async (
         return mappingPost(applyPostResult.data);
     }
 
-    return new Error(applyPostResult?.message);
+    throw new Error(applyPostResult?.message);
 };
 
 export const createPost = async (

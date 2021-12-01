@@ -31,7 +31,7 @@ export const login = async (
         return loginResult.data;
     }
 
-    return new Error(loginResult?.message);
+    throw new Error(loginResult?.message);
 };
 
 export const checkAuthorization = () => {
@@ -72,5 +72,5 @@ export const register = async (
         return registerResult.data;
     }
 
-    return new Error(registerResult.message);
+    throw new Error(registerResult.message);
 };

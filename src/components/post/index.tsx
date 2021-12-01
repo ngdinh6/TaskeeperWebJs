@@ -1,5 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import { applyJob } from "services/posts/post.service";
+import { ToastContainer, toast } from "react-toastify";
 
 const Post = (props: any) => {
     const { job } = props;
@@ -37,13 +38,13 @@ const Post = (props: any) => {
                     </div>
                     <a
                         onClick={async () => {
-                            try {
-                                const data = await applyJob(job._id, "");
-
-                                console.log(data);
-                            } catch (err) {
-                                console.error(err);
-                            }
+                            applyJob(job._id, "")
+                                .then((data) => {
+                                    toast.success("Apply successfully");
+                                })
+                                .catch((err) => {
+                                    toast.error(err.message);
+                                });
                         }}
                         className="btn btn-primary py-2"
                     >

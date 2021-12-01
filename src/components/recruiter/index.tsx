@@ -6,7 +6,10 @@ const Recruiter = (props: any) => {
     return (
         <div className="sidebar-box ">
             <div className="">
-                <a href="#" className="company-wrap">
+                <a
+                    href={`../userProfile/${recruiter._id}`}
+                    className="company-wrap"
+                >
                     <img
                         src={recruiter.avatar}
                         className="img-fluid"
@@ -15,7 +18,9 @@ const Recruiter = (props: any) => {
                 </a>
                 <div className="text p-3">
                     <h3>
-                        <a href="#">{`${recruiter.firstName} ${recruiter.lastName}`}</a>
+                        <a
+                            href={`../userProfile/${recruiter._id}`}
+                        >{`${recruiter.firstName} ${recruiter.lastName}`}</a>
                     </h3>
                     <p>
                         <span className="number">{recruiter.numberOfJobs}</span>{" "}

@@ -9,7 +9,7 @@ function Header() {
 
     return (
         <div className="container-fluid px-md-4	">
-            <a className="navbar-brand" href="index.html">
+            <a className="navbar-brand" href="../">
                 Taskeeper
             </a>
             <button

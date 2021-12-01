@@ -33,15 +33,19 @@ const LoginPage = (props: any) => {
             },
         };
 
-        login(data).then((response) => {
-            if (response) {
-                toast.success("Login successfully");
+        login(data)
+            .then((response) => {
+                if (response) {
+                    toast.success("Login successfully");
 
-                setInterval(() => {
-                    history.push("/");
-                }, 1000);
-            }
-        });
+                    setInterval(() => {
+                        history.push("/");
+                    }, 1000);
+                }
+            })
+            .catch((err) => {
+                toast.error(err.message);
+            });
     };
 
     return (
