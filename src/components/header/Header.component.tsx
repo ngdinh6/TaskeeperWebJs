@@ -1,14 +1,18 @@
-import React from "react";
+import React,{useEffect} from "react";
 
 import { withRouter } from "react-router-dom";
-import { Space, Button } from "antd";
+import { Avatar,Image } from 'antd';
 import * as Style from "components/header/style";
 
 function Header() {
+  useEffect(()=>{
+    const token = localStorage.getItem('bearer');
+    console.log(token);
+  },[])
   return (
     <div className="container-fluid px-md-4	">
       <a className="navbar-brand" href="index.html">
-        Skillhunt
+        Taskeeper
       </a>
       <button
         className="navbar-toggler"
@@ -58,6 +62,9 @@ function Header() {
             <a href="job-post.html" className="nav-link">
               Want a Job
             </a>
+          </li>
+          <li className="nav-item cta cta-colored">
+            <Avatar className="nav-link" src={<Image src="https://joeschmoe.io/api/v1/random" style={{ width: 30 ,background:'white'}} />} />
           </li>
         </ul>
       </div>

@@ -23,7 +23,7 @@ export const login = async (
             LocalStorageKey.BEARER,
             loginResult.data.access_token
         );
-
+        
         return loginResult.data;
     }
 
