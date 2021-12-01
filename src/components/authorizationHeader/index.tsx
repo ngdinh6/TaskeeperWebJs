@@ -11,6 +11,10 @@ const AuthorizationItemsMenu = (props: any) => {
     const isLogin = checkAuthorization();
     let userData: any;
 
+    function refreshPage() {
+        window.location.reload();
+    }
+
     if (isLogin) {
         userData = getJwtUserData();
 
@@ -61,7 +65,7 @@ const AuthorizationItemsMenu = (props: any) => {
                                     ""
                                 );
 
-                                history.push("/");
+                                refreshPage();
                             }}
                         >
                             Logout
