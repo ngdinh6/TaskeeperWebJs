@@ -13,6 +13,7 @@ import { Router, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
 import "./App.css";
+import SearchUsers from "pages/searchUserPage";
 
 function App() {
     document.title = "Taskeeper - Get jobs and up works";
@@ -32,6 +33,11 @@ function App() {
                     exact
                     path="/userProfile/:id"
                     component={UserProfile}
+                />
+                <DefaultLayout
+                    exact
+                    path="/searchUsers/:id"
+                    component={SearchUsers}
                 />
                 <DefaultLayout exact path="/post-job" component={PostJobPage} />
             </Switch>

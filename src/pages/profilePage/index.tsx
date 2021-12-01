@@ -103,6 +103,7 @@ const UserProfile = (props: any) => {
                                 </div>
                                 <div className="col-6">
                                     <a
+                                        href="#"
                                         className="btn btn-block btn-outline-success btn-md"
                                         onClick={async () => {
                                             followUser(userData._id)
