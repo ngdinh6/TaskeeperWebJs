@@ -7,6 +7,7 @@ import { ILoginState, IRegisterNewAccountState } from "models/IUserState";
 import { login } from "services/authentication/authentication.service";
 import rootReducer from "reducers/RootReducer";
 import { LocalStorageKey } from "enums/localstorage.enum";
+import { ToastContainer, toast } from "react-toastify";
 
 const LoginPage = (props: any) => {
     const { history } = props;
@@ -34,14 +35,18 @@ const LoginPage = (props: any) => {
 
         login(data).then((response) => {
             if (response) {
-                alert("Login Success");
-                history.push("/");
+                toast.success("Login successfully");
+
+                setInterval(() => {
+                    history.push("/");
+                }, 1000);
             }
         });
     };
 
     return (
         <div className="ant">
+            <ToastContainer />
             <Style.Header>TASKEEPER</Style.Header>
             <Style.Main>
                 <Style.TitleSay>WELCOME TO US</Style.TitleSay>

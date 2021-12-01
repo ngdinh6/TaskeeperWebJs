@@ -5,6 +5,7 @@ import {
     getJwtUserData,
 } from "services/authentication/authentication.service";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 const AuthorizationItemsMenu = (props: any) => {
     const { history } = props;
@@ -15,13 +16,16 @@ const AuthorizationItemsMenu = (props: any) => {
         window.location.reload();
     }
 
+    const notify = (text: string) => toast.success(text);
+
     if (isLogin) {
         userData = getJwtUserData();
 
         return (
             <>
+                <ToastContainer />
                 <li className="nav-item cta mr-md-1">
-                    <a href="post-job" className="nav-link">
+                    <a href="../post-job" className="nav-link">
                         Post a Job
                     </a>
                 </li>
@@ -59,13 +63,15 @@ const AuthorizationItemsMenu = (props: any) => {
                         <a
                             className="dropdown-item"
                             onClick={() => {
-                                alert("Logout successfully");
+                                notify("Logout successfully");
+
                                 localStorage.setItem(
                                     LocalStorageKey.BEARER,
                                     ""
                                 );
-
-                                refreshPage();
+                                setInterval(() => {
+                                    refreshPage();
+                                }, 1000);
                             }}
                         >
                             Logout
@@ -78,13 +84,14 @@ const AuthorizationItemsMenu = (props: any) => {
 
     return (
         <>
+            <ToastContainer />
             <li className="nav-item cta mr-md-1">
-                <a href="/login" className="nav-link">
+                <a href="../login" className="nav-link">
                     Login
                 </a>
             </li>
             <li className="nav-item cta cta-colored">
-                <a href="/register" className="nav-link">
+                <a href="../register" className="nav-link">
                     Register
                 </a>
             </li>

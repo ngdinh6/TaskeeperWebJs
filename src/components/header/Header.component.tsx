@@ -41,11 +41,6 @@ function Header() {
                             Canditates
                         </a>
                     </li>
-                    <li className="nav-item">
-                        <a href="blog.html" className="nav-link">
-                            Blog
-                        </a>
-                    </li>
                     <AuthorizationItemsMenu />
                 </ul>
             </div>

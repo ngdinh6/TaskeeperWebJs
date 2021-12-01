@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { applyJob, getPost } from "services/posts/post.service";
 import { SalaryType } from "enums/post.enum";
 
+import { Markup } from "interweave";
+
 const DetailJobPage = (props: any) => {
     const [postData, setPostData] = useState({} as any);
 
@@ -130,19 +132,14 @@ const DetailJobPage = (props: any) => {
                                     <span className="icon-align-left mr-3"></span>
                                     Job Description
                                 </h3>
-                                <p>{postData.description}</p>
+                                <Markup content={postData.description} />
                             </div>
                             <div className="mb-5">
                                 <h3 className="h5 d-flex align-items-center mb-4 text-primary">
                                     <span className="icon-rocket mr-3"></span>
                                     Responsibilities
                                 </h3>
-                                <ul className="list-unstyled m-0 p-0">
-                                    <li className="d-flex align-items-start mb-2">
-                                        <span className="icon-check_circle mr-2 text-muted"></span>
-                                        <span>{postData.responsibilities}</span>
-                                    </li>
-                                </ul>
+                                <Markup content={postData.responsibilities} />
                             </div>
 
                             <div className="mb-5">
@@ -150,25 +147,15 @@ const DetailJobPage = (props: any) => {
                                     <span className="icon-book mr-3"></span>
                                     Education + Experience
                                 </h3>
-                                <ul className="list-unstyled m-0 p-0">
-                                    <li className="d-flex align-items-start mb-2">
-                                        <span className="icon-check_circle mr-2 text-muted"></span>
-                                        <span>{postData.experience}</span>
-                                    </li>
-                                </ul>
+                                <Markup content={postData.experience} />
                             </div>
 
                             <div className="mb-5">
                                 <h3 className="h5 d-flex align-items-center mb-4 text-primary">
                                     <span className="icon-turned_in mr-3"></span>
-                                    Other Benifits
+                                    Other Benefits
                                 </h3>
-                                <ul className="list-unstyled m-0 p-0">
-                                    <li className="d-flex align-items-start mb-2">
-                                        <span className="icon-check_circle mr-2 text-muted"></span>
-                                        <span>{postData.benefits}</span>
-                                    </li>
-                                </ul>
+                                <Markup content={postData.benefits} />
                             </div>
 
                             <div className="row mb-5">
