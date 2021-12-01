@@ -16,8 +16,6 @@ const AuthorizationItemsMenu = (props: any) => {
         window.location.reload();
     }
 
-    const notify = (text: string) => toast.success(text);
-
     if (isLogin) {
         userData = getJwtUserData();
 
@@ -63,7 +61,7 @@ const AuthorizationItemsMenu = (props: any) => {
                         <a
                             className="dropdown-item"
                             onClick={() => {
-                                notify("Logout successfully");
+                                toast.warning("Logout successfully");
 
                                 localStorage.setItem(
                                     LocalStorageKey.BEARER,
