@@ -1,8 +1,21 @@
 import React, { Component, useEffect, useState } from "react";
 import _ from "lodash";
+import { searchUsers } from "services/users/users.service";
+import UserCardList from "components/userCardList";
+import { useParams } from "react-router-dom";
 
 const SearchUsers = (props: any) => {
-    useEffect(() => {}, []);
+    const { history } = props;
+    const params = useParams();
+
+    const [userList, setUserList] = useState([]);
+    const [searchCandidate, setSearchCandidate] = useState("");
+
+    useEffect(() => {
+        searchUsers((params as any).searchString, 0, 10).then((data) => {
+            setUserList(data);
+        });
+    }, []);
 
     return (
         <div>
@@ -24,74 +37,60 @@ const SearchUsers = (props: any) => {
                                         <i className="ion-ios-arrow-forward"></i>
                                     </a>
                                 </span>{" "}
-                                <span>User</span>
+                                <span>Users</span>
                             </p>
                             <h1 className="mb-3 bread">Search Users</h1>
                         </div>
                     </div>
                 </div>
             </div>
-            <section
-                className="site-section"
-                style={{ margin: "10px", padding: "10px" }}
+            <div
+                className="tab-pane fade"
+                id="v-pills-2"
+                role="tabpanel"
+                aria-labelledby="v-pills-performance-tab"
             >
-                <div className="container">
-                    <div className="container profile-page">
-                        <div className="col-xl-6 col-lg-7 col-md-12">
-                            <div className="card profile-header">
-                                <div className="body">
-                                    <div className="row">
-                                        <div className="col-lg-4 col-md-4 col-12">
-                                            <div className="profile-image float-md-right">
-                                                {" "}
-                                                <img
-                                                    src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                                                    alt=""
-                                                />{" "}
-                                            </div>
-                                        </div>
-                                        <div className="col-lg-8 col-md-8 col-12">
-                                            <h4 className="m-t-0 m-b-0">
-                                                <strong>Michael</strong> Deo
-                                            </h4>
-                                            <span className="job_post">
-                                                Ui UX Designer
-                                            </span>
-                                            <p>
-                                                795 Folsom Ave, Suite 600 San
-                                                Francisco, CADGE 94107
-                                            </p>
-                                            <div>
-                                                <button className="btn btn-primary btn-round">
-                                                    Follow
-                                                </button>
-                                                <button className="btn btn-primary btn-round btn-simple">
-                                                    Message
-                                                </button>
-                                            </div>
-                                            <p className="social-icon m-t-5 m-b-0">
-                                                <a title="Twitter">
-                                                    <i className="fa fa-twitter"></i>
-                                                </a>
-                                                <a title="Facebook">
-                                                    <i className="fa fa-facebook"></i>
-                                                </a>
-                                                <a title="Google-plus">
-                                                    <i className="fa fa-twitter"></i>
-                                                </a>
-                                                <a title="Behance">
-                                                    <i className="fa fa-behance"></i>
-                                                </a>
-                                                <a title="Instagram">
-                                                    <i className="fa fa-instagram "></i>
-                                                </a>
-                                            </p>
-                                        </div>
+                <form action="#" className="search-job">
+                    <div className="row">
+                        <div className="col-md-9">
+                            <div className="form-group">
+                                <div className="form-field">
+                                    <div className="icon">
+                                        <span className="icon-user"></span>
                                     </div>
+                                    <input
+                                        value={searchCandidate}
+                                        type="text"
+                                        className="form-control"
+                                        placeholder="eg. Adam Scott"
+                                        onChange={(evt) => {
+                                            setSearchCandidate(
+                                                evt.target.value
+                                            );
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-md-3">
+                            <div className="form-group">
+                                <div className="form-field">
+                                    <button
+                                        type="submit"
+                                        className="form-control btn btn-primary"
+                                        onClick={() => {}}
+                                    >
+                                        Search Users
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </form>
+            </div>
+            <section className="site-section">
+                <div className="container">
+                    <UserCardList userList={userList} />
                 </div>
             </section>
         </div>

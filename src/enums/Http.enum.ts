@@ -23,9 +23,11 @@ export enum PostsEndpoint {
     GET_POST = "posts/getPost",
     GET_WALL = "posts/getWall",
     GET_NEWS_FEED = "posts/getNewsFeed",
+    SEARCH_JOBS = "posts/searchJobs",
 }
 
 export enum UsersEndpoint {
+    SEARCH_USERS = "users/searchUsers",
     GET_TOP_RECRUITERS = "users/getTopRecruiters",
     GET_USER = "users/getUser",
     UPLOAD_AVATAR = "users/avatar",

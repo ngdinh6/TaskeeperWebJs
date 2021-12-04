@@ -36,7 +36,7 @@ function App() {
                 />
                 <DefaultLayout
                     exact
-                    path="/searchUsers/:id"
+                    path="/searchUsers/:searchString"
                     component={SearchUsers}
                 />
                 <DefaultLayout exact path="/post-job" component={PostJobPage} />

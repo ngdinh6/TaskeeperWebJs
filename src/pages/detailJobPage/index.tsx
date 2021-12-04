@@ -7,15 +7,18 @@ import { Markup } from "interweave";
 import moduleConfig from "module.config";
 import _ from "lodash";
 import { getUser } from "services/users/users.service";
+import { getJwtUserData } from "services/authentication/authentication.service";
 
 const QRCode = require("qrcode.react");
 
 const DetailJobPage = (props: any) => {
     const [postData, setPostData] = useState({} as any);
     const [ownerData, setOwnerData] = useState({} as any);
+    const [isPreviewMode, setIsPreviewMode] = useState(false);
 
     const params: any = useParams();
     const jobUrl: string = `${moduleConfig.devServer.host}/detail-job/${params.id}`;
+    const updateJobUrl: string = `${moduleConfig.devServer.host}/editJob/${params.id}`;
 
     const getData = (): Promise<Object> => {
         return getPost(params.id);
@@ -28,6 +31,9 @@ const DetailJobPage = (props: any) => {
 
                 const ownerId: any = _.head((data as any).owner);
 
+                if (ownerId === (getJwtUserData() as any)._id) {
+                    setIsPreviewMode(true);
+                }
                 getUser(ownerId).then((ownerData) => {
                     setOwnerData(ownerData);
                 });
@@ -101,7 +107,7 @@ const DetailJobPage = (props: any) => {
                         </div>
                         <div className="col-lg-4">
                             <div className="row">
-                                <div className="col-6">
+                                <div className="col-6" hidden={isPreviewMode}>
                                     <a
                                         href="#"
                                         className="btn btn-block btn-light btn-md"
@@ -114,19 +120,25 @@ const DetailJobPage = (props: any) => {
                                     <a
                                         onClick={async () => {
                                             try {
-                                                const data = await applyJob(
-                                                    params.id,
-                                                    ""
-                                                );
-
-                                                console.log(data);
+                                                if (isPreviewMode) {
+                                                    window.location.assign(
+                                                        updateJobUrl
+                                                    );
+                                                } else {
+                                                    const data = await applyJob(
+                                                        params.id,
+                                                        ""
+                                                    );
+                                                }
                                             } catch (err) {
                                                 console.error(err);
                                             }
                                         }}
                                         className="btn btn-block btn-primary btn-md"
                                     >
-                                        Apply Now
+                                        {isPreviewMode
+                                            ? "Update job"
+                                            : "Apply now"}
                                     </a>
                                 </div>
                             </div>

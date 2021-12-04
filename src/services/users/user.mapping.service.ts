@@ -7,6 +7,8 @@ export const mappingUser = (userData: any) => {
         languageCode: userData.languageCode,
         avatar: userData.avatar || defaultAvatar,
         gender: userData.gender,
+        description: userData.description,
+        location: userData.location,
         dayOfBirth: userData.dayOfBirth,
         monthOfBirth: userData.monthOfBirth,
         yearOfBirth: userData.yearOfBirth,

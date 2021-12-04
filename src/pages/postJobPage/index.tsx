@@ -86,11 +86,9 @@ const PostJobPage = (props: any) => {
 
                 editPost(postJobData)
                     .then((responseData) => {
-                        const jobUrl: string = `${
-                            moduleConfig.devServer.host
-                        }/detail-job/${(responseData as any)._id}`;
+                        const jobUrl: string = `${moduleConfig.devServer.host}/detail-job/${id}`;
 
-                        notify("Post job successfully");
+                        notify("Edit job successfully");
 
                         setTimeout(() => {
                             window.location.assign(jobUrl as any);

@@ -22,6 +22,50 @@ export const getTopRecruiters = async (): Promise<Object[] | any> => {
     return new Error(getUserData?.message);
 };
 
+export const searchUsers = async (
+    searchString: string,
+    offset: number,
+    limit: number
+): Promise<Object[] | any> => {
+    const searchParams = {
+        paging: {
+            limit,
+            offset,
+        },
+        filter: {
+            or: [
+                {
+                    lastName: {
+                        iLike: searchString,
+                    },
+                },
+                {
+                    firstName: {
+                        iLike: searchString,
+                    },
+                },
+            ],
+        },
+        sorting: [
+            {
+                direction: "ASC",
+                field: "createdAt",
+            },
+        ],
+    };
+
+    const searchUsersData = await sendPostRequest(
+        UsersEndpoint.SEARCH_USERS,
+        searchParams
+    );
+
+    if (searchUsersData.status === HttpStatus.OK) {
+        return _.map(searchUsersData.data, (user) => mappingUser(user));
+    }
+
+    throw new Error(searchUsersData?.message);
+};
+
 export const uploadAvatar = async (file: any): Promise<Object | Error> => {
     const uploadAvatarResult = await sendPostRequest(
         UsersEndpoint.UPLOAD_AVATAR,

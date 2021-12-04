@@ -1,3 +1,4 @@
+import { JobType } from "enums/post.enum";
 import { INewPostState, IEditPostState, IUploadImage } from "models/IPostState";
 import {
     sendGetRequest,
@@ -125,6 +126,63 @@ export const deletePost = async (
     }
 
     return new Error(deletedPostResult.message);
+};
+
+export const searchJobs = async (
+    searchString: string,
+    offset: number,
+    limit: number,
+    jobType: string,
+    location: string
+): Promise<Object[] | any> => {
+    const searchParams = {
+        paging: {
+            limit,
+            offset,
+        },
+        filter: {
+            location: {
+                iLike: location,
+            },
+            or: [
+                {
+                    title: {
+                        iLike: searchString,
+                    },
+                },
+                {
+                    description: {
+                        iLike: searchString,
+                    },
+                },
+            ],
+        },
+        sorting: [
+            {
+                direction: "DESC",
+                field: "createdAt",
+            },
+        ],
+    };
+
+    if (jobType) {
+        searchParams.filter = _.assign(searchParams.filter, {
+            jobType: {
+                is: jobType,
+            },
+        });
+    }
+
+    const searchJobsData = await sendPostRequest(
+        PostsEndpoint.SEARCH_JOBS,
+        searchParams
+    );
+
+    if (searchJobsData.status === HttpStatus.FOUND) {
+        return _.map(searchJobsData.data, (post) => mappingPost(post));
+    }
+
+    throw new Error(searchJobsData?.message);
 };
 
 const buildGetPostQueryUrl = (postId: string): string => {

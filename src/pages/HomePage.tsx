@@ -2,14 +2,20 @@ import React, { Component, useEffect, useState } from "react";
 import Tag from "pages/tagPage/index";
 import Job from "pages/jobPage/index";
 import { getTopRecruiters } from "services/users/users.service";
+import { searchJobs } from "services/posts/post.service";
+import moduleConfig from "module.config";
 
 const HomePage = (props: any) => {
     const { history } = props;
+    const [jobList, setJobList] = useState([]);
+    const [searchCandidate, setSearchCandidate] = useState("");
+
+    const searchUsersUrl = `/searchUsers/${searchCandidate}`;
 
     useEffect(() => {
-        // const token = localStorage.getItem("user");
-        // var decoded = jwt_decode(token);
-        // console.log(decoded);
+        searchJobs("", 0, 10, "", "").then((jobList) => {
+            setJobList(jobList);
+        });
     }, []);
     //const handleOnClick = useCallback(() => history.push("/login"), [history]);
 
@@ -235,79 +241,46 @@ const HomePage = (props: any) => {
                                                         className="search-job"
                                                     >
                                                         <div className="row">
-                                                            <div className="col-md">
+                                                            <div className="col-md-9">
                                                                 <div className="form-group">
                                                                     <div className="form-field">
                                                                         <div className="icon">
                                                                             <span className="icon-user"></span>
                                                                         </div>
                                                                         <input
+                                                                            value={
+                                                                                searchCandidate
+                                                                            }
                                                                             type="text"
                                                                             className="form-control"
                                                                             placeholder="eg. Adam Scott"
+                                                                            onChange={(
+                                                                                evt
+                                                                            ) => {
+                                                                                setSearchCandidate(
+                                                                                    evt
+                                                                                        .target
+                                                                                        .value
+                                                                                );
+                                                                            }}
                                                                         />
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div className="col-md">
-                                                                <div className="form-group">
-                                                                    <div className="form-field">
-                                                                        <div className="select-wrap">
-                                                                            <div className="icon">
-                                                                                <span className="ion-ios-arrow-down"></span>
-                                                                            </div>
-                                                                            <select
-                                                                                name=""
-                                                                                id=""
-                                                                                className="form-control"
-                                                                            >
-                                                                                <option value="">
-                                                                                    Category
-                                                                                </option>
-                                                                                <option value="">
-                                                                                    Full
-                                                                                    Time
-                                                                                </option>
-                                                                                <option value="">
-                                                                                    Part
-                                                                                    Time
-                                                                                </option>
-                                                                                <option value="">
-                                                                                    Freelance
-                                                                                </option>
-                                                                                <option value="">
-                                                                                    Internship
-                                                                                </option>
-                                                                                <option value="">
-                                                                                    Temporary
-                                                                                </option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md">
-                                                                <div className="form-group">
-                                                                    <div className="form-field">
-                                                                        <div className="icon">
-                                                                            <span className="icon-map-marker"></span>
-                                                                        </div>
-                                                                        <input
-                                                                            type="text"
-                                                                            className="form-control"
-                                                                            placeholder="Location"
-                                                                        />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="col-md">
+                                                            <div className="col-md-3">
                                                                 <div className="form-group">
                                                                     <div className="form-field">
                                                                         <button
                                                                             type="submit"
                                                                             className="form-control btn btn-primary"
+                                                                            onClick={() => {
+                                                                                history.push(
+                                                                                    searchUsersUrl
+                                                                                );
+                                                                            }}
                                                                         >
                                                                             Search
+                                                                            Users
                                                                         </button>
                                                                     </div>
                                                                 </div>
@@ -504,7 +477,7 @@ const HomePage = (props: any) => {
                     </div>
                 </div>
             </section>
-            <Job />
+            <Job jobList={jobList} />
         </div>
     );
 };

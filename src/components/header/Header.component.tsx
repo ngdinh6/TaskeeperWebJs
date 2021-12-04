@@ -37,7 +37,7 @@ function Header() {
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a href="candidates.html" className="nav-link">
+                        <a href="../searchUsers/Tai" className="nav-link">
                             Canditates
                         </a>
                     </li>
