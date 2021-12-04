@@ -51,7 +51,10 @@ const AuthorizationItemsMenu = (props: any) => {
                         className="dropdown-menu"
                         aria-labelledby="navbarDropdown"
                     >
-                        <a className="dropdown-item" href="#">
+                        <a
+                            className="dropdown-item"
+                            href={`../userProfile/${userData._id}`}
+                        >
                             My user profile
                         </a>
                         <a className="dropdown-item" href="#">

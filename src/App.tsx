@@ -40,6 +40,11 @@ function App() {
                     component={SearchUsers}
                 />
                 <DefaultLayout exact path="/post-job" component={PostJobPage} />
+                <DefaultLayout
+                    exact
+                    path="/editJob/:id"
+                    component={PostJobPage}
+                />
             </Switch>
         </Router>
     );

@@ -4,11 +4,19 @@ import { followUser, getUser } from "services/users/users.service";
 import PostList from "components/PostList/index";
 import { getUserWall } from "services/posts/post.service";
 import { ToastContainer, toast } from "react-toastify";
+import { getJwtUserData } from "services/authentication/authentication.service";
+import moduleConfig from "module.config";
+import _ from "lodash";
+
+const QRCode = require("qrcode.react");
 
 const UserProfile = (props: any) => {
     const params: any = useParams();
     const [userData, setUserData] = useState({} as any);
     const [userWallData, setUserWallData] = useState([] as any);
+    const jwtData: any = getJwtUserData();
+    const [isOwner, setIsOwner] = useState(false);
+    const profileUrl: string = `${moduleConfig.devServer.host}/userProfile/${params.id}`;
 
     useEffect(() => {
         try {
@@ -18,6 +26,10 @@ const UserProfile = (props: any) => {
             Promise.all([userData, userWall]).then((result) => {
                 setUserData(result[0]);
                 setUserWallData(result[1]);
+
+                if ((result[0] as any)._id === jwtData._id) {
+                    setIsOwner(true);
+                }
             });
         } catch (err) {
             console.error(err);
@@ -66,6 +78,15 @@ const UserProfile = (props: any) => {
                                     />
                                 </div>
                                 <div>
+                                    <QRCode
+                                        id="qrcode"
+                                        value={profileUrl}
+                                        size={120}
+                                        level={"H"}
+                                        includeMargin={true}
+                                    />
+                                </div>
+                                <div>
                                     <h2>{`${userData.firstName} ${userData.lastName}`}</h2>
                                     <div>
                                         <span className="m-2">
@@ -85,6 +106,7 @@ const UserProfile = (props: any) => {
                                 </div>
                             </div>
                         </div>
+
                         <div className="col-lg-4">
                             <div className="row">
                                 {/* <div className="col-6">
@@ -123,6 +145,7 @@ const UserProfile = (props: any) => {
                             </div>
                         </div>
                     </div>
+
                     <div className="row">
                         <div className="col-lg-6 mb-5">
                             <div className="p-4 border rounded">
@@ -139,6 +162,14 @@ const UserProfile = (props: any) => {
                                             id="fname"
                                             className="form-control"
                                             placeholder="Email address"
+                                            onChange={(evt) =>
+                                                setUserData(
+                                                    _.assign(
+                                                        userData,
+                                                        evt.target.value
+                                                    )
+                                                )
+                                            }
                                             value={userData.email}
                                         />
                                     </div>
@@ -224,6 +255,7 @@ const UserProfile = (props: any) => {
                                             Tags
                                         </label>
                                         <input
+                                            value={userData.tags}
                                             type="text"
                                             id="fname"
                                             className="form-control"
@@ -240,7 +272,7 @@ const UserProfile = (props: any) => {
                                             Ratings
                                         </label>
                                         <input
-                                            type="password"
+                                            type="text"
                                             id="fname"
                                             className="form-control"
                                             placeholder="Ratings"
@@ -256,7 +288,7 @@ const UserProfile = (props: any) => {
                                             Address
                                         </label>
                                         <input
-                                            type="password"
+                                            type="text"
                                             id="fname"
                                             className="form-control"
                                             placeholder="Address"

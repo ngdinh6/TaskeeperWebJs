@@ -25,7 +25,9 @@ export const mappingPost = (postData: any) => {
         salaryType: postData.salaryType,
         minSalary: postData.minSalary,
         maxSalary: postData.maxSalary,
+        positions: postData.positions,
         location: postData.location,
         image: postData.images[0],
+        owner: postData.owner,
     };
 };

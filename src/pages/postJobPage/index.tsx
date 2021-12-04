@@ -1,50 +1,59 @@
-import { INewPostState } from "models/IPostState";
 import React, {
     Component,
     MouseEventHandler,
     useEffect,
     useState,
 } from "react";
-import { createPost } from "services/posts/post.service";
+import { createPost, editPost, getPost } from "services/posts/post.service";
 import { JobType } from "enums/post.enum";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import moduleConfig from "module.config";
+import { useParams } from "react-router-dom";
+import _ from "lodash";
 
 const { CKEditor } = require("@ckeditor/ckeditor5-react");
 const ClassicEditor = require("@ckeditor/ckeditor5-build-classic");
 
 const PostJobPage = (props: any) => {
-    const [title, setTile] = useState("");
+    const [id, setId] = useState("");
+    const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [minSalary, setMinSalary] = useState(0);
     const [maxSalary, setMaxSalary] = useState(0);
-    const [jobType, setJobType] = useState("");
+    const [jobType, setJobType] = useState("freelance");
     const [location, setLocation] = useState("");
     const [industries, setIndustries] = useState([]);
     const [tags, setTags] = useState([]);
-    const [positions, setPositions] = useState([]);
+    const [positions, setPositions] = useState([] as string[]);
     const [skills, setSkills] = useState([]);
-    const [expiredDate, setExpiredDate] = useState(new Date());
+    const [expiredDate, setExpiredDate] = useState("");
     const [responsibilities, setResponsibilities] = useState("");
     const [experience, setExperience] = useState("");
     const [requirement, setRequirement] = useState("");
     const [benefits, setBenefits] = useState("");
+    const [salaryType, setSalaryType] = useState("");
+    const [buttonText, setButtonText] = useState("Create New Job");
 
     const notify = (text: any) => toast.success(text);
     const notifyError = (text: any) => toast.error(text);
+    const params: any = useParams();
+    const getData = (): Promise<Object> => {
+        return getPost(params.id);
+    };
 
     const saveJob = (): any => {
         if (!title || !description || !jobType) {
             notifyError("You need fill out information");
         } else {
-            const postJobData = {
+            let postJobData = {
                 title,
                 description,
                 requirement,
                 jobType,
                 tags: ["string"],
                 industries: ["string"],
-                positions: ["string"],
+                positions: positions,
                 skills: ["string"],
                 salaryType: "Range",
                 minSalary,
@@ -53,16 +62,72 @@ const PostJobPage = (props: any) => {
                 responsibilities,
                 experience,
                 benefits,
+                expiredDate: new Date(expiredDate),
             };
-            console.log(postJobData);
-            createPost(postJobData).then((responseData) => {
-                notify("Post job successfully");
-            });
+
+            if (!id) {
+                createPost(postJobData)
+                    .then((responseData) => {
+                        const jobUrl: string = `${
+                            moduleConfig.devServer.host
+                        }/detail-job/${(responseData as any)._id}`;
+
+                        notify("Post job successfully");
+
+                        setTimeout(() => {
+                            window.location.assign(jobUrl as any);
+                        }, 2000);
+                    })
+                    .catch((err) => {
+                        notifyError(err.message);
+                    });
+            } else {
+                postJobData = _.assign(postJobData, { _id: id });
+
+                editPost(postJobData)
+                    .then((responseData) => {
+                        const jobUrl: string = `${
+                            moduleConfig.devServer.host
+                        }/detail-job/${(responseData as any)._id}`;
+
+                        notify("Post job successfully");
+
+                        setTimeout(() => {
+                            window.location.assign(jobUrl as any);
+                        }, 2000);
+                    })
+                    .catch((err) => {
+                        notifyError(err.message);
+                    });
+            }
         }
     };
 
     useEffect(() => {
-        console.log(tags);
+        if (!!params.id) {
+            setButtonText("Edit Job");
+
+            getData().then((data: any) => {
+                try {
+                    setTitle(data.title);
+                    setDescription(data.description);
+                    setRequirement(data.requirement);
+                    setJobType(data.jobType);
+                    setPositions(data.positions);
+                    setSalaryType(data.salaryType);
+                    setMinSalary(data.minSalary);
+                    setMaxSalary(data.maxSalary);
+                    setLocation(data.location);
+                    setResponsibilities(data.responsibilities);
+                    setExperience(data.experience);
+                    setBenefits(data.benefits);
+                    setExpiredDate(data.expiredDate);
+                    setId(data._id);
+                } catch (err) {
+                    console.error();
+                }
+            });
+        }
     }, [tags]);
     return (
         <div>
@@ -151,7 +216,7 @@ const PostJobPage = (props: any) => {
                                         placeholder="Product Designer"
                                         value={title}
                                         onChange={(evt) =>
-                                            setTile(evt.target.value)
+                                            setTitle(evt.target.value)
                                         }
                                     />
                                 </div>
@@ -276,6 +341,20 @@ const PostJobPage = (props: any) => {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="job-location">
+                                        Experiences
+                                    </label>
+                                    <CKEditor
+                                        editor={ClassicEditor}
+                                        data={experience}
+                                        onChange={(event: any, editor: any) => {
+                                            const data = editor.getData();
+
+                                            setExperience(data);
+                                        }}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="job-location">
                                         Benefits
                                     </label>
                                     <CKEditor
@@ -285,6 +364,36 @@ const PostJobPage = (props: any) => {
                                             const data = editor.getData();
 
                                             setBenefits(data);
+                                        }}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="job-position">
+                                        Positions
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        id="job-title"
+                                        placeholder="Positions"
+                                        value={positions}
+                                        onChange={(evt) =>
+                                            setPositions([evt.target.value])
+                                        }
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="job-expired">
+                                        Expired Date
+                                    </label>
+                                    <input
+                                        type="date"
+                                        className="form-control"
+                                        id="job-expired"
+                                        placeholder="Expired Date"
+                                        value={expiredDate}
+                                        onChange={(evt) => {
+                                            setExpiredDate(evt.target.value);
                                         }}
                                     />
                                 </div>
@@ -308,7 +417,7 @@ const PostJobPage = (props: any) => {
                                         className="btn btn-block btn-primary btn-md"
                                         onClick={() => saveJob()}
                                     >
-                                        Create New Job
+                                        {buttonText}
                                     </p>
                                 </div>
                             </div>

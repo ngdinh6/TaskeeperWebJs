@@ -18,7 +18,7 @@ export const mappingUser = (userData: any) => {
         lastName: userData.lastName,
         numberOfFollower: _.size(userData.follower),
         numberOfFollowing: _.size(userData.following),
-        tags: userData.tags,
+        tags: _.join(userData.tags, ", "),
         numberOfJobs: userData.numberOfJobs || 0,
     };
 };

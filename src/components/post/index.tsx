@@ -1,5 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import { applyJob } from "services/posts/post.service";
+import { Markup } from "interweave";
 import { ToastContainer, toast } from "react-toastify";
 
 const Post = (props: any) => {
@@ -12,13 +13,15 @@ const Post = (props: any) => {
                     <div className="job-post-item-header align-items-center">
                         <span className="subadge">{job.jobType}</span>
                         <h2 className="mr-3 text-black">
-                            <a href="#">{job.title}</a>
+                            <a href={`../detail-job/${job._id}`}>{job.title}</a>
                         </h2>
                     </div>
                     <div className="job-post-item-body d-block d-md-flex">
                         <div className="mr-3">
                             <span className="icon-layers"></span>{" "}
-                            <a href="#">Facebook, Inc.</a>
+                            <a href={`../detail-job/${job._id}`}>
+                                Facebook, Inc.
+                            </a>
                         </div>
                         <div>
                             <span className="icon-my_location"></span>{" "}

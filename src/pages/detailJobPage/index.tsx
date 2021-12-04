@@ -1,15 +1,21 @@
 import React, { Component, EffectCallback, useEffect, useState } from "react";
-import RecommentJob from "pages/jobRecommentPage/index";
+import RecommendJob from "pages/jobRecommentPage/index";
 import { useParams } from "react-router-dom";
 import { applyJob, getPost } from "services/posts/post.service";
 import { SalaryType } from "enums/post.enum";
-
 import { Markup } from "interweave";
+import moduleConfig from "module.config";
+import _ from "lodash";
+import { getUser } from "services/users/users.service";
+
+const QRCode = require("qrcode.react");
 
 const DetailJobPage = (props: any) => {
     const [postData, setPostData] = useState({} as any);
+    const [ownerData, setOwnerData] = useState({} as any);
 
     const params: any = useParams();
+    const jobUrl: string = `${moduleConfig.devServer.host}/detail-job/${params.id}`;
 
     const getData = (): Promise<Object> => {
         return getPost(params.id);
@@ -19,6 +25,12 @@ const DetailJobPage = (props: any) => {
         getData().then((data) => {
             try {
                 setPostData(data);
+
+                const ownerId: any = _.head((data as any).owner);
+
+                getUser(ownerId).then((ownerData) => {
+                    setOwnerData(ownerData);
+                });
             } catch (err) {
                 console.error();
             }
@@ -60,7 +72,9 @@ const DetailJobPage = (props: any) => {
                             <div className="d-flex align-items-center">
                                 <div className="border p-2 d-inline-block mr-3 rounded">
                                     <img
-                                        src="../images/job_logo_5.jpg"
+                                        src={ownerData.avatar}
+                                        width="150"
+                                        height="150"
                                         alt="Image"
                                     />
                                 </div>
@@ -69,7 +83,7 @@ const DetailJobPage = (props: any) => {
                                     <div>
                                         <span className="ml-0 mr-2 mb-2">
                                             <span className="icon-briefcase mr-2"></span>
-                                            Puma
+                                            {`${ownerData.firstName} ${ownerData.lastName}`}
                                         </span>
                                         <span className="m-2">
                                             <span className="icon-room mr-2"></span>
@@ -190,6 +204,13 @@ const DetailJobPage = (props: any) => {
                             </div>
                         </div>
                         <div className="col-lg-4">
+                            <QRCode
+                                id="qrcode"
+                                value={jobUrl}
+                                size={290}
+                                level={"H"}
+                                includeMargin={true}
+                            />
                             <div className="bg-light p-3 border rounded mb-4">
                                 <h3 className="text-primary  mt-3 h5 pl-3 mb-3 ">
                                     Job Summary
@@ -209,9 +230,9 @@ const DetailJobPage = (props: any) => {
                                     </li>
                                     <li className="mb-2">
                                         <strong className="text-black">
-                                            Employment Status:
+                                            Employment Positions:
                                         </strong>{" "}
-                                        {postData.jobType}
+                                        {_.head(_.get(postData, "positions"))}
                                     </li>
                                     <li className="mb-2">
                                         <strong className="text-black">
@@ -254,16 +275,28 @@ const DetailJobPage = (props: any) => {
                                     Share
                                 </h3>
                                 <div className="px-3">
-                                    <a href="#" className="pt-3 pb-3 pr-3 pl-0">
+                                    <a
+                                        href={`https://www.facebook.com/sharer/sharer.php?u=${jobUrl}`}
+                                        className="pt-3 pb-3 pr-3 pl-0"
+                                    >
                                         <span className="icon-facebook"></span>
                                     </a>
-                                    <a href="#" className="pt-3 pb-3 pr-3 pl-0">
+                                    <a
+                                        href={`http://www.twitter.com/share?url=${jobUrl}`}
+                                        className="pt-3 pb-3 pr-3 pl-0"
+                                    >
                                         <span className="icon-twitter"></span>
                                     </a>
-                                    <a href="#" className="pt-3 pb-3 pr-3 pl-0">
+                                    <a
+                                        href={`https://www.linkedin.com/sharing/share-offsite/?url=${jobUrl}`}
+                                        className="pt-3 pb-3 pr-3 pl-0"
+                                    >
                                         <span className="icon-linkedin"></span>
                                     </a>
-                                    <a href="#" className="pt-3 pb-3 pr-3 pl-0">
+                                    <a
+                                        href={`http://pinterest.com/pin/create/button/?url=${jobUrl}`}
+                                        className="pt-3 pb-3 pr-3 pl-0"
+                                    >
                                         <span className="icon-pinterest"></span>
                                     </a>
                                 </div>
@@ -272,7 +305,7 @@ const DetailJobPage = (props: any) => {
                     </div>
                 </div>
             </section>
-            <RecommentJob />
+            <RecommendJob />
         </div>
     );
 };

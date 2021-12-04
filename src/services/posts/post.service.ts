@@ -47,7 +47,7 @@ export const createPost = async (
         return newPostResult.data;
     }
 
-    return new Error(newPostResult.message);
+    throw new Error(newPostResult.message);
 };
 
 export const uploadImages = async (
@@ -73,7 +73,10 @@ export const getUserWall = async (userId: string): Promise<Object | Error> => {
     });
 
     if (getUserWallResult.status === HttpStatus.FOUND) {
-        return _.map(getUserWallResult.data, (post) => mappingPost(post));
+        return _.chain(getUserWallResult.data)
+            .map((post) => mappingPost(post))
+            .orderBy("createdAt", "asc")
+            .value();
     }
 
     return new Error(getUserWallResult?.message);
@@ -96,7 +99,7 @@ export const getUserNewsFeed = async (): Promise<Object | Error> => {
 };
 
 export const editPost = async (
-    editPost: IEditPostState
+    editPost: IEditPostState | Object
 ): Promise<Object | Error> => {
     const editPostResult = await sendPutRequest(
         PostsEndpoint.EDIT_POST,
@@ -107,7 +110,7 @@ export const editPost = async (
         return editPostResult.data;
     }
 
-    return new Error(editPostResult.message);
+    throw new Error(editPostResult.message);
 };
 
 export const deletePost = async (
