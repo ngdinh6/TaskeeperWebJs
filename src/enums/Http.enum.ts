@@ -24,6 +24,7 @@ export enum PostsEndpoint {
     GET_WALL = "posts/getWall",
     GET_NEWS_FEED = "posts/getNewsFeed",
     SEARCH_JOBS = "posts/searchJobs",
+    GET_RECOMMEND = "posts/getRecommendPost",
 }
 
 export enum UsersEndpoint {

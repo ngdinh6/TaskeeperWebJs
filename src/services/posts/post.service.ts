@@ -148,6 +148,22 @@ export const getUserNewsFeed = async () => {
     throw new Error(getNewsFeedResult?.message);
 };
 
+export const getRecommendPosts = async (postId: string) => {
+    const queryUrl = buildGetRecommendPostQueryUrl(postId);
+    const getRecommendPostsResult = await sendGetRequest(queryUrl);
+
+    if (getRecommendPostsResult.status === HttpStatus.OK) {
+        return _.chain(getRecommendPostsResult.data)
+            .map((post) => {
+                return mappingPost(post);
+            })
+            .orderBy("createdAt", "asc")
+            .value();
+    }
+
+    throw new Error(getRecommendPostsResult?.message);
+};
+
 export const editPost = async (
     editPost: IEditPostState | Object
 ): Promise<Object | Error> => {
@@ -236,4 +252,8 @@ export const searchJobs = async (
 
 const buildGetPostQueryUrl = (postId: string): string => {
     return `${PostsEndpoint.GET_POST}?postId=${postId}`;
+};
+
+const buildGetRecommendPostQueryUrl = (postId: string): string => {
+    return `${PostsEndpoint.GET_RECOMMEND}?postId=${postId}`;
 };

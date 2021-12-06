@@ -1,13 +1,18 @@
 import React, { Component, EffectCallback, useEffect, useState } from "react";
 import RecommendJob from "pages/jobRecommentPage/index";
 import { useParams } from "react-router-dom";
-import { applyJob, getPost } from "services/posts/post.service";
+import {
+    applyJob,
+    getPost,
+    getRecommendPosts,
+} from "services/posts/post.service";
 import { SalaryType } from "enums/post.enum";
 import { Markup } from "interweave";
 import moduleConfig from "module.config";
 import _ from "lodash";
 import { getUser } from "services/users/users.service";
 import { getJwtUserData } from "services/authentication/authentication.service";
+import PostList from "components/PostList";
 
 const QRCode = require("qrcode.react");
 
@@ -19,6 +24,7 @@ const DetailJobPage = (props: any) => {
     const params: any = useParams();
     const jobUrl: string = `${moduleConfig.devServer.host}/detail-job/${params.id}`;
     const updateJobUrl: string = `${moduleConfig.devServer.host}/editJob/${params.id}`;
+    const [recommendPosts, setRecommendPosts] = useState([] as any[]);
 
     const getData = (): Promise<Object> => {
         return getPost(params.id);
@@ -37,6 +43,14 @@ const DetailJobPage = (props: any) => {
                 getUser(ownerId).then((ownerData) => {
                     setOwnerData(ownerData);
                 });
+
+                getRecommendPosts(params.id)
+                    .then((data) => {
+                        setRecommendPosts(data);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
             } catch (err) {
                 console.error();
             }
@@ -317,7 +331,7 @@ const DetailJobPage = (props: any) => {
                     </div>
                 </div>
             </section>
-            <RecommendJob />
+            <PostList jobList={recommendPosts} />
         </div>
     );
 };
