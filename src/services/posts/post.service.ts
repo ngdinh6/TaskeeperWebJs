@@ -29,7 +29,7 @@ export const applyJob = async (
         summaryMessage,
     });
 
-    if (applyPostResult.status === HttpStatus.FOUND) {
+    if (applyPostResult.status === HttpStatus.ACCEPTED) {
         return mappingPost(applyPostResult.data);
     }
 
@@ -66,7 +66,7 @@ export const uploadImages = async (
     return new Error(uploadImageResult.message);
 };
 
-export const getUserWall = async (userId: string): Promise<Object | Error> => {
+export const getUserWall = async (userId: string) => {
     const getUserWallResult = await sendPostRequest(PostsEndpoint.GET_WALL, {
         userId,
         limit: 100,
@@ -74,8 +74,15 @@ export const getUserWall = async (userId: string): Promise<Object | Error> => {
     });
 
     if (getUserWallResult.status === HttpStatus.FOUND) {
-        return _.chain(getUserWallResult.data)
-            .map((post) => mappingPost(post))
+        return _.chain(getUserWallResult.data.wallPosts)
+            .map((post) => {
+                const ownerData = _.find(
+                    getUserWallResult.data.owners,
+                    (owner) => owner._id === _.head(post.owner)
+                );
+
+                return mappingPost(post, ownerData);
+            })
             .orderBy("createdAt", "asc")
             .value();
     }
@@ -83,7 +90,7 @@ export const getUserWall = async (userId: string): Promise<Object | Error> => {
     return new Error(getUserWallResult?.message);
 };
 
-export const getUserNewsFeed = async (): Promise<Object | Error> => {
+export const getUserNewsFeed = async () => {
     const getNewsFeedResult = await sendPostRequest(
         PostsEndpoint.GET_NEWS_FEED,
         {
@@ -93,10 +100,20 @@ export const getUserNewsFeed = async (): Promise<Object | Error> => {
     );
 
     if (getNewsFeedResult.status === HttpStatus.FOUND) {
-        return _.map(getNewsFeedResult.data, (post) => mappingPost(post));
+        return _.chain(getNewsFeedResult.data.newsFeeds)
+            .map((post) => {
+                const ownerData = _.find(
+                    getNewsFeedResult.data.owners,
+                    (owner) => owner._id === _.head(post.owner)
+                );
+
+                return mappingPost(post, ownerData);
+            })
+            .orderBy("createdAt", "asc")
+            .value();
     }
 
-    return new Error(getNewsFeedResult?.message);
+    throw new Error(getNewsFeedResult?.message);
 };
 
 export const editPost = async (

@@ -1,21 +1,21 @@
-import React, { Component, useEffect, useState } from "react";
-import _ from "lodash";
-import { searchUsers } from "services/users/users.service";
-import UserCardList from "components/userCardList";
-import { useParams } from "react-router-dom";
+import PostCardList from "components/postCardList";
+import React, { Component, EffectCallback, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { getUserNewsFeed, searchJobs } from "services/posts/post.service";
 
-const SearchUsers = (props: any) => {
+const UserNewsFeedPage = (props: any) => {
     const { history } = props;
-    const params = useParams();
-
-    const [userList, setUserList] = useState([]);
-    const [searchCandidate, setSearchCandidate] = useState("");
-    const [searchString, setSearchString] = useState("");
+    const [searchPostString, setSearchPostString] = useState("");
+    const [postCardList, setPostCardList] = useState([] as any[]);
 
     useEffect(() => {
-        searchUsers((params as any).searchString, 0, 10).then((data) => {
-            setUserList(data);
-        });
+        getUserNewsFeed()
+            .then((jobList) => {
+                setPostCardList(jobList);
+            })
+            .catch((err) => {
+                toast.error(err.message);
+            });
     }, []);
 
     return (
@@ -40,7 +40,7 @@ const SearchUsers = (props: any) => {
                                 </span>{" "}
                                 <span>Users</span>
                             </p>
-                            <h1 className="mb-3 bread">Search Users</h1>
+                            <h1 className="mb-3 bread">News Feed</h1>
                         </div>
                     </div>
                 </div>
@@ -56,12 +56,14 @@ const SearchUsers = (props: any) => {
                                 </div>
                                 <div className="col">
                                     <input
-                                        value={searchString}
+                                        value={searchPostString}
                                         className="form-control form-control-lg form-control-borderless"
                                         type="search"
-                                        placeholder="Search users for keywords"
+                                        placeholder="Search jobs for keywords"
                                         onChange={(evt) => {
-                                            setSearchString(evt.target.value);
+                                            setSearchPostString(
+                                                evt.target.value
+                                            );
                                         }}
                                     />
                                 </div>
@@ -70,13 +72,19 @@ const SearchUsers = (props: any) => {
                                         className="btn btn-lg btn-primary"
                                         type="submit"
                                         onClick={() => {
-                                            searchUsers(
-                                                searchString,
+                                            searchJobs(
+                                                searchPostString,
                                                 0,
-                                                10
-                                            ).then((data) => {
-                                                setUserList(data);
-                                            });
+                                                10,
+                                                "",
+                                                ""
+                                            )
+                                                .then((data) => {
+                                                    setPostCardList(data);
+                                                })
+                                                .catch((err) => {
+                                                    toast.error(err.message);
+                                                });
                                         }}
                                     >
                                         Search
@@ -87,11 +95,11 @@ const SearchUsers = (props: any) => {
                     </div>
                 </div>
                 <div className="container">
-                    <UserCardList userList={userList} />
+                    <PostCardList postCardList={postCardList} />
                 </div>
             </section>
         </div>
     );
 };
 
-export default SearchUsers;
+export default UserNewsFeedPage;

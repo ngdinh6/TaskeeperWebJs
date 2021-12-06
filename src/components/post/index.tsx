@@ -20,7 +20,7 @@ const Post = (props: any) => {
                         <div className="mr-3">
                             <span className="icon-layers"></span>{" "}
                             <a href={`../detail-job/${job._id}`}>
-                                Facebook, Inc.
+                                {`${job.ownerFirstName} ${job.ownerLastName}`}
                             </a>
                         </div>
                         <div>

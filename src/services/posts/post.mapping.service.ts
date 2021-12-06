@@ -1,4 +1,6 @@
-export const mappingPost = (postData: any) => {
+import _ from "lodash";
+
+export const mappingPost = (postData: any, ownerData?: any): any => {
     return {
         _id: postData._id,
         title: postData.title,
@@ -21,13 +23,17 @@ export const mappingPost = (postData: any) => {
         experience: postData.experience,
         industries: postData.industries,
         skills: postData.skills,
+        candidates: postData.candidates,
         tags: postData.tags,
         salaryType: postData.salaryType,
         minSalary: postData.minSalary,
         maxSalary: postData.maxSalary,
         positions: postData.positions,
         location: postData.location,
-        image: postData.images[0],
+        image: _.head(postData.images),
         owner: postData.owner,
+        ownerFirstName: ownerData?.firstName || "",
+        ownerLastName: ownerData?.lastName || "",
+        ownerAvatar: ownerData?.avatar || "",
     };
 };

@@ -27,18 +27,18 @@ function Header() {
             <div className="collapse navbar-collapse" id="ftco-nav">
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item active">
-                        <a href="homepage" className="nav-link">
+                        <a href="../homepage" className="nav-link">
                             Home
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a href="browsejobs.html" className="nav-link">
+                        <a href="../posts" className="nav-link">
                             Browse Jobs
                         </a>
                     </li>
                     <li className="nav-item">
                         <a href="../searchUsers/Tai" className="nav-link">
-                            Canditates
+                            Candidates
                         </a>
                     </li>
                     <AuthorizationItemsMenu />
