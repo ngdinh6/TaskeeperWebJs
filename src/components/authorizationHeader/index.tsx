@@ -28,7 +28,7 @@ const AuthorizationItemsMenu = (props: any) => {
                     </a>
                 </li>
                 <li className="nav-item cta cta-colored">
-                    <a href="job-post.html" className="nav-link">
+                    <a href="../manageApplicants" className="nav-link">
                         Manage Jobs
                     </a>
                 </li>

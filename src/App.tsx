@@ -15,6 +15,7 @@ import { createBrowserHistory } from "history";
 import "./App.css";
 import SearchUsers from "pages/searchUserPage";
 import UserNewsFeedPage from "pages/userNewsFeedPage";
+import ManageApplicants from "pages/manageApplicantPage";
 
 function App() {
     document.title = "Taskeeper - Get jobs and up works";
@@ -44,6 +45,11 @@ function App() {
                     exact
                     path="/posts"
                     component={UserNewsFeedPage}
+                />
+                <DefaultLayout
+                    exact
+                    path="/manageApplicants"
+                    component={ManageApplicants}
                 />
                 <DefaultLayout exact path="/post-job" component={PostJobPage} />
                 <DefaultLayout

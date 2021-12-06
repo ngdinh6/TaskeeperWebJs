@@ -1,3 +1,4 @@
+import { getJwtUserData } from "services/authentication/authentication.service";
 import { JobType } from "enums/post.enum";
 import { INewPostState, IEditPostState, IUploadImage } from "models/IPostState";
 import {
@@ -7,8 +8,12 @@ import {
     sendDeleteRequest,
 } from "services/api.service";
 import { PostsEndpoint, HttpStatus } from "enums/Http.enum";
-import { mappingPost } from "services/posts/post.mapping.service";
+import {
+    mappingPost,
+    mappingPostApplicants,
+} from "services/posts/post.mapping.service";
 import _ from "lodash";
+import { getUsersByIds } from "services/users/users.service";
 
 export const getPost = async (postId: string): Promise<Object | Error> => {
     const getPostResult = await sendGetRequest(buildGetPostQueryUrl(postId));
@@ -18,6 +23,33 @@ export const getPost = async (postId: string): Promise<Object | Error> => {
     }
 
     return new Error(getPostResult?.message);
+};
+
+export const getApplicants = async () => {
+    const userData: any = getJwtUserData();
+
+    const getMyOwnData = await sendPostRequest(PostsEndpoint.GET_WALL, {
+        userId: _.get(userData, "_id"),
+        limit: 100,
+        offset: 0,
+    });
+
+    if (getMyOwnData.status === HttpStatus.FOUND) {
+        const getApplicantIds = _.chain(getMyOwnData.data.wallPosts)
+            .map((wallPost) => {
+                return _.map(wallPost.candidates, (candidate) =>
+                    _.get(candidate, "candidate._id")
+                );
+            })
+            .flatMap()
+            .uniq()
+            .value();
+        const usersData = await getUsersByIds(getApplicantIds);
+
+        return mappingPostApplicants(getMyOwnData.data.wallPosts, usersData);
+    }
+
+    throw new Error(getMyOwnData?.message);
 };
 
 export const applyJob = async (

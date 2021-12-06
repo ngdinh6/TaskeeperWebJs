@@ -1,11 +1,14 @@
-import { defaultAvatar } from "enums/user.enum";
+import { femaleDefaultAvatar, maleDefaultAvatar } from "enums/user.enum";
 import _ from "lodash";
 
 export const mappingUser = (userData: any) => {
     return {
         _id: userData._id,
         languageCode: userData.languageCode,
-        avatar: userData.avatar || defaultAvatar,
+        avatar:
+            userData.avatar || userData.gender === "male"
+                ? maleDefaultAvatar
+                : femaleDefaultAvatar,
         gender: userData.gender,
         description: userData.description,
         location: userData.location,

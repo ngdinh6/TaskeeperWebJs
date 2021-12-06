@@ -66,6 +66,32 @@ export const searchUsers = async (
     throw new Error(searchUsersData?.message);
 };
 
+export const getUsersByIds = async (userIds: string[]) => {
+    const searchParams = {
+        paging: {
+            limit: 1000,
+            offset: 0,
+        },
+        filter: {
+            _id: {
+                in: userIds,
+            },
+        },
+        sorting: [],
+    };
+
+    const searchUsersData = await sendPostRequest(
+        UsersEndpoint.SEARCH_USERS,
+        searchParams
+    );
+
+    if (searchUsersData.status === HttpStatus.OK) {
+        return _.map(searchUsersData.data, (user) => mappingUser(user));
+    }
+
+    throw new Error(searchUsersData?.message);
+};
+
 export const uploadAvatar = async (file: any): Promise<Object | Error> => {
     const uploadAvatarResult = await sendPostRequest(
         UsersEndpoint.UPLOAD_AVATAR,

@@ -70,7 +70,8 @@ const PostCard = (props: any) => {
                 <div className="card-body">
                     <div className="text-muted h7 mb-2">
                         {" "}
-                        <i className="fa fa-clock-o"></i>10 min ago
+                        <i className="fa fa-clock-o"></i>
+                        {post.createdAt}
                     </div>
                     <a className="card-link" href="#">
                         <h5 className="card-title">{post.title}</h5>

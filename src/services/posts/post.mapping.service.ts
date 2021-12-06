@@ -37,3 +37,43 @@ export const mappingPost = (postData: any, ownerData?: any): any => {
         ownerAvatar: ownerData?.avatar || "",
     };
 };
+
+export const mappingPostApplicants = (
+    postsData: any,
+    candidatesData?: any
+): any => {
+    const uniqApplicants = _.chain(postsData)
+        .map((postData) => {
+            return _.map(postData.candidates, (candidate) => {
+                candidate.applicantsId = `${candidate.candidate._id}.${postData._id}`;
+                candidate.title = postData.title;
+                candidate.postId = postData._id;
+
+                return candidate;
+            });
+        })
+        .flatMap()
+        .uniqBy("applicantsId")
+        .value();
+
+    return _.map(uniqApplicants, (applicant) => {
+        const post = _.find(
+            postsData,
+            (postData) => postData._id === applicant.postId
+        );
+        const candidate = _.find(
+            candidatesData,
+            (candidate) => applicant.candidate._id === candidate._id
+        );
+
+        applicant.candidateFirstName = candidate.firstName;
+        applicant.candidateLastName = candidate.lastName;
+        applicant.yearOfBirth = candidate.yearOfBirth;
+        applicant.email = candidate.email;
+        applicant.phoneNumber = candidate.phoneNumber;
+        applicant.gender = candidate.gender;
+        applicant.avatar = candidate.avatar;
+
+        return applicant;
+    });
+};
