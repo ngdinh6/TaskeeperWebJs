@@ -85,35 +85,30 @@ const UserCard = (props: any) => {
                                 >
                                     <a
                                         title="Twitter"
-                                        href="javascript:void(0);"
                                         style={{ marginLeft: "10px" }}
                                     >
                                         <i className="icon-twitter"></i>
                                     </a>
                                     <a
                                         title="Facebook"
-                                        href="javascript:void(0);"
                                         style={{ marginLeft: "10px" }}
                                     >
                                         <i className="icon-facebook"></i>
                                     </a>
                                     <a
                                         title="Google-plus"
-                                        href="javascript:void(0);"
                                         style={{ marginLeft: "10px" }}
                                     >
                                         <i className="icon-google"></i>
                                     </a>
                                     <a
                                         title="Behance"
-                                        href="javascript:void(0);"
                                         style={{ marginLeft: "10px" }}
                                     >
                                         <i className="icon-behance"></i>
                                     </a>
                                     <a
                                         title="Instagram"
-                                        href="javascript:void(0);"
                                         style={{ marginLeft: "10px" }}
                                     >
                                         <i className="icon-instagram "></i>

@@ -10,6 +10,7 @@ const SearchUsers = (props: any) => {
 
     const [userList, setUserList] = useState([]);
     const [searchCandidate, setSearchCandidate] = useState("");
+    const [searchString, setSearchString] = useState("");
 
     useEffect(() => {
         searchUsers((params as any).searchString, 0, 10).then((data) => {
@@ -88,7 +89,47 @@ const SearchUsers = (props: any) => {
                     </div>
                 </form>
             </div>
+
             <section className="site-section">
+                <div className="container">
+                    <div className="row justify-content-center">
+                        <div className="col-12 col-md-10 col-lg-8">
+                            <div className="card-body row no-gutters align-items-center">
+                                <div className="col-auto">
+                                    <i className="fas fa-search h4 text-body"></i>
+                                </div>
+                                <div className="col">
+                                    <input
+                                        value={searchString}
+                                        className="form-control form-control-lg form-control-borderless"
+                                        type="search"
+                                        placeholder="Search users for keywords"
+                                        onChange={(evt) => {
+                                            setSearchString(evt.target.value);
+                                        }}
+                                    />
+                                </div>
+                                <div className="col-auto">
+                                    <button
+                                        className="btn btn-lg btn-primary"
+                                        type="submit"
+                                        onClick={() => {
+                                            searchUsers(
+                                                searchString,
+                                                0,
+                                                10
+                                            ).then((data) => {
+                                                setUserList(data);
+                                            });
+                                        }}
+                                    >
+                                        Search
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div className="container">
                     <UserCardList userList={userList} />
                 </div>
